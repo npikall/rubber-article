@@ -21,7 +21,7 @@ exclude = [
 ]
 
 [template]
-path = "docs"
+path = "template"
 entrypoint = "main.typ"
 thumbnail = "thumbnail.png"
 
