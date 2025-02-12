@@ -23,6 +23,7 @@ These instructions will get you a copy of the project up and running on the typs
 
 ## Further Functionality
 The template provides a few more functions to customize the document.
+For an indepth look into the functionality checkout the [guide].
 
 ```typ
 #show article.with(
@@ -34,3 +35,5 @@ The template provides a few more functions to customize the document.
   heading-numbering: "1.1  ",
 )
 ```
+
+[guide]: https://github.com/npikall/rubber-article/tree/main/docs/docs.pdf
