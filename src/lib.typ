@@ -65,6 +65,9 @@
   /// Set the title of the bibliography.
   /// -> str | content
   bib-titel: "Bibliography",
+  /// Set the width of the figure captions.
+  /// -> relative
+  fig-caption-width: 75%,
   ///-> content
   content,
 ) = {
@@ -111,6 +114,8 @@
   show figure.where(kind: table): set figure(supplement: [Tab.], numbering: "1") if lang == "de"
   show figure.where(kind: image): set figure(supplement: [Abb.], numbering: "1", ) if lang == "de"
 
+  show figure.where(kind: table): set figure.caption(position: top)
+
   // Set Table style
 
   set table(
@@ -120,52 +125,17 @@
     inset: (right: 1.5em),
   )
 
-  // Configure figures (tables)
 
-  show figure.where(kind: table): it => {
-    show: pad.with(x: 23pt)
-    set align(center)
-    v(12.5pt, weak: true)
-    // Display the figure's caption.
-
-    if it.has("caption") {
-      v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
-      strong(it.supplement)
-      if it.numbering != none {
-        []
-        strong(it.counter.display(it.numbering))
-      }
-      [*: *]
-      it.caption.body
-      // Display the figure's body.
-
+  show figure.caption: it => {
+    set par(justify: true)
+    let prefix = {
+      it.supplement + " " + context it.counter.display(it.numbering)+ ": "
+    }
+    let cap = {
+      strong(prefix)
       it.body
     }
-    v(15pt, weak: true)
-  }
-
-  // Configure figures (images)
-
-  show figure.where(kind: image): it => {
-    show: pad.with(x: 23pt)
-    set align(center)
-    v(12.5pt, weak: true)
-    // Display the figure's body.
-
-    it.body
-    // Display the figure's caption.
-
-    if it.has("caption") {
-      v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
-      strong(it.supplement)
-      if it.numbering != none {
-        []
-        strong(it.counter.display(it.numbering))
-      }
-      [*: *]
-      it.caption.body
-    }
-    v(15pt, weak: true)
+    block(width: fig-caption-width, cap)
   }
 
   // Configure the header.
