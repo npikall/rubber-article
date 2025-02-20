@@ -8,15 +8,7 @@ default:
 
 # generate manual
 doc:
-	typst compile docs/manual.typ docs/manual.pdf
-
-# run test suite
-test *args:
-	typst-test run {{ args }}
-
-# update test cases
-update *args:
-	typst-test update {{ args }}
+	typst compile docs/docs.typ docs/docs.pdf
 
 # package the library into the specified destination folder
 package target:
@@ -39,4 +31,8 @@ uninstall: (remove "@local")
 uninstall-preview: (remove "@preview")
 
 # run ci suite
-ci: test doc
+ci: doc
+
+# update the package version
+bump old new:
+  python ./scripts/update_version.py "{{old}}" "{{new}}"
