@@ -5,7 +5,8 @@ from pathlib import Path
 FILES_TO_UPDATE =  [
     "typst.toml",
     "README.md",
-    "template/main.typ"
+    "template/main.typ",
+    "docs/docs.typ"
 ]
 
 

@@ -28,7 +28,7 @@
   page-numbering-align: center,
   /// Set the heading numbering style.
   /// -> none | str | function
-  heading-numbering: "1.1  ",
+  heading-numbering: "1.1",
   /// Set the margins of the document.
   /// -> auto | relative | dictionary
   margins: (left: 25mm, right: 25mm, top: 30mm, bottom: 30mm),
