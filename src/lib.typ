@@ -65,7 +65,8 @@
   /// Set the title of the bibliography.
   /// -> str | content
   bib-titel: "Bibliography",
-  ///
+  /// Set the width of the figure captions.
+  /// -> relative
   fig-caption-width: 75%,
   ///-> content
   content,
