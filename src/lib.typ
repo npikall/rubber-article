@@ -95,16 +95,12 @@
   set heading(numbering: heading-numbering)
   set enum(indent: enum-indent)
   set list(indent: list-indent)
-  set outline(indent: auto)
-  show outline.entry.where(
-    level: 1,
-  ): it => {
-    v(15pt, weak: true)
-    text(size: 11pt, [
-      #strong(it.body)
-      #box(width: 1fr, repeat[])
-      #strong(it.page)
-    ])
+  show outline.entry.where(level:1): {
+    it => link(
+      it.element.location(),
+      it.indented(strong(it.prefix()), strong((it.body()) + h(1fr) + it.page()), 
+      gap:0.5em),
+    )
   }
 
   set std-bibliography(style: "ieee", title: bib-titel)
