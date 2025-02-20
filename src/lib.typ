@@ -9,6 +9,9 @@
   /// Set the equation numbering style.
   /// -> str | none
   eq-numbering: none,
+  /// Chapterwise numbering of equations.
+  /// -> bool
+  eq-chapterwise: false,
   /// Set the text size.
   /// Headings are adjusted automatically.
   /// -> length
@@ -62,8 +65,20 @@
     number-align: page-numbering-align,
   )
   set text(font: "New Computer Modern", lang: lang, size: text-size)
-  show math.equation: set text(weight: 400)
-  set math.equation(numbering: eq-numbering)
+
+  // Set the equation numbering style.
+
+  let chapterwise-numbering = (..num) => numbering(eq-numbering, counter(heading).get().first(), num.pos().first())
+
+  let reset-eq-counter = it => {
+    counter(math.equation).update(0)
+    it
+  }
+  show heading.where(level: 1): if eq-chapterwise {reset-eq-counter}
+
+  set math.equation(numbering: eq-numbering) if not eq-chapterwise
+  set math.equation(numbering: chapterwise-numbering) if eq-chapterwise
+
   set heading(numbering: heading-numbering)
   set enum(indent: enum-indent)
   set list(indent: list-indent)
