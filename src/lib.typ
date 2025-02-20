@@ -1,5 +1,9 @@
 #import "@preview/hydra:0.6.0": hydra
 
+// Workaround for the lack of `std` scope
+#let std-bibliography = bibliography
+
+
 /// A Template recreating the look of the classic Article Class.
 /// -> content
 #let article(
@@ -55,6 +59,12 @@
   /// Set the appendix numbering style.
   /// -> none | str | function
   appendix-numbering: "A.1",
+  /// Add a bibliography to the document.
+  /// -> content
+  bibliography: none,
+  /// Set the title of the bibliography.
+  /// -> str | content
+  bib-titel: "Bibliography",
   ///-> content
   content,
 ) = {
@@ -74,7 +84,7 @@
     counter(math.equation).update(0)
     it
   }
-  show heading.where(level: 1): if eq-chapterwise {reset-eq-counter}
+  show heading.where(level: 1): if eq-chapterwise {reset-eq-counter} else {it => it}
 
   set math.equation(numbering: eq-numbering) if not eq-chapterwise
   set math.equation(numbering: chapterwise-numbering) if eq-chapterwise
@@ -82,7 +92,6 @@
   set heading(numbering: heading-numbering)
   set enum(indent: enum-indent)
   set list(indent: list-indent)
-  show link: it => text(fill: blue.darken(20%), it)
   set outline(indent: auto)
   show outline.entry.where(
     level: 1,
@@ -94,6 +103,8 @@
       #strong(it.page)
     ])
   }
+
+  set std-bibliography(style: "ieee", title: bib-titel)
 
   // Referencing Figures
 
@@ -206,6 +217,11 @@
   set par(justify: justify)
 
   content
+
+  if bibliography != none {
+    pagebreak(weak: true)
+    bibliography
+  }
 
   if appendix != none {
     context counter(heading).update(0)
