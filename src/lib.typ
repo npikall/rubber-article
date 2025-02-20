@@ -43,6 +43,15 @@
   /// Set the Header Titel
   /// -> str | content
   header-titel: none,
+  /// Set if document should be justified.
+  /// -> bool
+  justify: true,
+  /// Add an appendix to the document.
+  /// -> content
+  appendix: none,
+  /// Set the appendix numbering style.
+  /// -> none | str | function
+  appendix-numbering: "A.1",
   ///-> content
   content,
 ) = {
@@ -68,163 +77,171 @@
       #strong(it.body)
       #box(width: 1fr, repeat[])
       #strong(it.page)
-    ])}
-    // Referencing Figures
+    ])
+  }
 
-    show figure.where(kind: table): set figure(supplement: [Tab.], numbering: "1") if lang == "de"
-    show figure.where(kind: image): set figure(supplement: [Abb.], numbering: "1", ) if lang == "de"
+  // Referencing Figures
 
-    // Set Table style
+  show figure.where(kind: table): set figure(supplement: [Tab.], numbering: "1") if lang == "de"
+  show figure.where(kind: image): set figure(supplement: [Abb.], numbering: "1", ) if lang == "de"
 
-    set table(
-      stroke: none,
-      gutter: auto,
-      fill: none,
-      inset: (right: 1.5em),
-    )
+  // Set Table style
 
-    // Configure figures (tables)
+  set table(
+    stroke: none,
+    gutter: auto,
+    fill: none,
+    inset: (right: 1.5em),
+  )
 
-    show figure.where(kind: table): it => {
-      show: pad.with(x: 23pt)
-      set align(center)
-      v(12.5pt, weak: true)
-      // Display the figure's caption.
+  // Configure figures (tables)
 
-      if it.has("caption") {
-        v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
-        strong(it.supplement)
-        if it.numbering != none {
-          []
-          strong(it.counter.display(it.numbering))
-        }
-        [*: *]
-        it.caption.body
-        // Display the figure's body.
+  show figure.where(kind: table): it => {
+    show: pad.with(x: 23pt)
+    set align(center)
+    v(12.5pt, weak: true)
+    // Display the figure's caption.
 
-        it.body
+    if it.has("caption") {
+      v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
+      strong(it.supplement)
+      if it.numbering != none {
+        []
+        strong(it.counter.display(it.numbering))
       }
-      v(15pt, weak: true)
-    }
-
-    // Configure figures (images)
-
-    show figure.where(kind: image): it => {
-      show: pad.with(x: 23pt)
-      set align(center)
-      v(12.5pt, weak: true)
+      [*: *]
+      it.caption.body
       // Display the figure's body.
 
       it.body
-      // Display the figure's caption.
-
-      if it.has("caption") {
-        v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
-        strong(it.supplement)
-        if it.numbering != none {
-          []
-          strong(it.counter.display(it.numbering))
-        }
-        [*: *]
-        it.caption.body
-      }
-      v(15pt, weak: true)
     }
-
-    // Configure the header.
-
-    let header-oddPage = context {
-      set text(10pt)
-      set grid.hline(stroke: 0.9pt)
-      grid(
-        columns: (1fr, 1fr),
-        align: (left, right),
-        inset:4pt,
-        smallcaps(header-titel),
-        hydra(1),
-        grid.hline(),
-      )
-    }
-
-    let header-evenPage = context {
-      set text(10pt)
-      set grid.hline(stroke: 0.9pt)
-      grid(
-        columns: (1fr, 1fr),
-        align: (left, right),
-        inset:4pt,
-        hydra(1),
-        smallcaps(header-titel),
-        grid.hline(),
-      )
-    }
-
-    let header-content = context {
-      let current = counter(page).get().first()
-
-      if current > first-page-header and calc.rem(current,2) == 0{
-        return header-oddPage
-      } else if current > first-page-header {
-        if alternating-header {
-          return header-evenPage
-        } else {
-          return header-oddPage
-        }
-      }
-    }
-
-    set page(header: header-content) if show-header
-
-    // Main body.
-
-    set par(justify: true)
-
-    content
+    v(15pt, weak: true)
   }
 
-  /// Make the title of the document.
-  /// -> content
-  #let maketitle(
-    /// The title of the document.
-    /// -> string | content
-    title: "",
-    /// The authors of the document.
-    /// -> array
-    authors: (),
-    /// The date of the document.
-    /// -> string | content | datetime
-    date: none,
-    /// Use titel and author information for
-    /// the document metadata.
-    /// -> bool
-    metadata: true,
-  ) = {
-    if metadata {
-      set document(author: authors, title: title)
-    }
-    // Author information.
+  // Configure figures (images)
 
-    let authors-text = {
-      set text(size: 1.1em)
-      pad(
-        top: 0.5em,
-        bottom: 0.5em,
-        x: 2em,
-        grid(
-          columns: (1fr,) * calc.min(3, authors.len()),
-          gutter: 1em,
-          ..authors.map(author => align(center, author)),
-        ),
-      )}
-      // Frontmatter
+  show figure.where(kind: image): it => {
+    show: pad.with(x: 23pt)
+    set align(center)
+    v(12.5pt, weak: true)
+    // Display the figure's body.
 
-      align(center)[
-        #v(60pt)
-        #block(text(weight: 400, 18pt, title))
-        #v(1em, weak: true)
-        #authors-text
-        #v(1em, weak: true)
-        #block(text(weight: 400, 1.1em, date))
-        #v(20pt)
-      ]
+    it.body
+    // Display the figure's caption.
+
+    if it.has("caption") {
+      v(if it.has("gap") { it.gap } else { 17pt }, weak: true)
+      strong(it.supplement)
+      if it.numbering != none {
+        []
+        strong(it.counter.display(it.numbering))
+      }
+      [*: *]
+      it.caption.body
     }
+    v(15pt, weak: true)
+  }
+
+  // Configure the header.
+
+  let header-oddPage = context {
+    set text(10pt)
+    set grid.hline(stroke: 0.9pt)
+    grid(
+      columns: (1fr, 1fr),
+      align: (left, right),
+      inset:4pt,
+      smallcaps(header-titel),
+      hydra(1),
+      grid.hline(),
+    )
+  }
+
+  let header-evenPage = context {
+    set text(10pt)
+    set grid.hline(stroke: 0.9pt)
+    grid(
+      columns: (1fr, 1fr),
+      align: (left, right),
+      inset:4pt,
+      hydra(1),
+      smallcaps(header-titel),
+      grid.hline(),
+    )
+  }
+
+  let header-content = context {
+    let current = counter(page).get().first()
+
+    if current > first-page-header and calc.rem(current,2) == 0{
+      return header-oddPage
+    } else if current > first-page-header {
+      if alternating-header {
+        return header-evenPage
+      } else {
+        return header-oddPage
+      }
+    }
+  }
+
+  set page(header: header-content) if show-header
+
+  // Main body.
+
+  set par(justify: justify)
+
+  content
+
+  if appendix != none {
+    context counter(heading).update(0)
+    set heading(numbering: appendix-numbering)
+    appendix
+  }
+}
+
+/// Make the title of the document.
+/// -> content
+#let maketitle(
+  /// The title of the document.
+  /// -> string | content
+  title: "",
+  /// The authors of the document.
+  /// -> array
+  authors: (),
+  /// The date of the document.
+  /// -> string | content | datetime
+  date: none,
+  /// Use titel and author information for
+  /// the document metadata.
+  /// -> bool
+  metadata: true,
+) = {
+  if metadata {
+    set document(author: authors, title: title)
+  }
+  // Author information.
+
+  let authors-text = {
+    set text(size: 1.1em)
+    pad(
+      top: 0.5em,
+      bottom: 0.5em,
+      x: 2em,
+      grid(
+        columns: (1fr,) * calc.min(3, authors.len()),
+        gutter: 1em,
+        ..authors.map(author => align(center, author)),
+      ),
+    )}
+    // Frontmatter
+
+    align(center)[
+      #v(60pt)
+      #block(text(weight: 400, 18pt, title))
+      #v(1em, weak: true)
+      #authors-text
+      #v(1em, weak: true)
+      #block(text(weight: 400, 1.1em, date))
+      #v(20pt)
+    ]
+  }
