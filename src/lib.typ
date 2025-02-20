@@ -1,4 +1,4 @@
-#import "@preview/hydra:0.5.2": hydra
+#import "@preview/hydra:0.6.0": hydra
 
 /// A Template recreating the look of the classic Article Class.
 /// -> content
@@ -152,7 +152,7 @@
       align: (left, right),
       inset:4pt,
       smallcaps(header-titel),
-      hydra(1),
+      smallcaps(hydra(1)),
       grid.hline(),
     )
   }
@@ -164,7 +164,7 @@
       columns: (1fr, 1fr),
       align: (left, right),
       inset:4pt,
-      hydra(1),
+      smallcaps(hydra(1)),
       smallcaps(header-titel),
       grid.hline(),
     )
@@ -174,12 +174,12 @@
     let current = counter(page).get().first()
 
     if current > first-page-header and calc.rem(current,2) == 0{
-      return header-oddPage
+      return header-evenPage
     } else if current > first-page-header {
       if alternating-header {
-        return header-evenPage
-      } else {
         return header-oddPage
+      } else {
+        return header-evenPage
       }
     }
   }
