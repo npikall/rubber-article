@@ -1,10 +1,10 @@
-#import "@preview/rubber-article:0.3.0": *
+#import "@preview/rubber-article:0.3.1": *
 
 #show: article.with(
   show-header: true,
   header-titel: "The Title of the Paper",
   eq-numbering: "(1.1)",
-  fig-caption-width: 80%,
+  eq-chapterwise: true,
 )
 
 #maketitle(
@@ -19,7 +19,7 @@
 
 #figure(
   rect(width: 4cm, height: 3cm),
-  caption: [#lorem(50)],
+  caption: [#lorem(30)],
 )
 
 == In this paper
@@ -33,4 +33,21 @@ $
 #lorem(40)
 
 = Related Work
-#lorem(500)
+#lorem(300)
+
+$
+y = k x + d
+$
+#lorem(50)
+
+#show: appendix.with(
+  title: "Appendix",
+)
+
+= Appendix 1
+#lorem(35)
+
+== Some more details
+#lorem(20)
+
+

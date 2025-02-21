@@ -1,5 +1,5 @@
 # The `rubber-article` Package
-<div align="center">Version 0.3.0</div>
+<div align="center">Version 0.3.1</div>
 
 This template is a intended as a starting point for creating documents, which should have the classic LaTeX Article look.
 
@@ -8,7 +8,7 @@ This template is a intended as a starting point for creating documents, which sh
 These instructions will get you a copy of the project up and running on the typst web app. Perhaps a short code example on importing the package and a very simple teaser usage.
 
 ```typ
-#import "@preview/rubber-article:0.3.0": *
+#import "@preview/rubber-article:0.3.1": *
 
 #show: article.with()
 
