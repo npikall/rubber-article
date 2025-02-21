@@ -242,3 +242,42 @@
       #v(20pt)
     ]
   }
+
+/// Function to format the Appendix
+/// -> content
+#let appendix(
+  /// The numbering of the Appendix
+  /// -> none | str | function
+  numbering:"A.1",
+  /// The title of the Appendix
+  /// -> none | str | content
+  title: none,
+  /// The alignment of the title
+  /// -> alignment
+  title-align: center,
+  /// The size of the title
+  /// -> length
+  title-size: none,
+  /// Startting the appendex after this number
+  /// -> int
+  numbering-start:0,
+  content
+) = {
+  context counter(heading).update(numbering-start)
+  set heading(numbering: numbering)
+
+  // Optional Title
+  if title != none {
+    show heading.where(level:1, numbering:none): it => {
+      if title-size != none {
+        set text(size: title-size)
+        it
+      } else {
+        it
+      }
+    }
+    let title-text = heading(numbering: none, level: 1, title)
+    align(title-align, title-text)
+  }
+  content
+}

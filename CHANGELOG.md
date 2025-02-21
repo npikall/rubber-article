@@ -1,3 +1,7 @@
+# [v0.3.1](https://github.com/npikall/rubber-article/releases/tag/v0.3.1)
+New Feature:
+- new function to only format the appendix
+
 # [v0.3.0](https://github.com/npikall/rubber-article/releases/tag/v0.3.0)
 New Features:
 - integrated bibliography
