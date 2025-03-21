@@ -2,7 +2,7 @@
 
 #show: article.with(
   show-header: true,
-  header-titel: "The Title of the Paper",
+  header-title: "The Title of the Paper",
   eq-numbering: "(1.1)",
   eq-chapterwise: true,
 )

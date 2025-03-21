@@ -49,7 +49,7 @@
   first-page-header: 1,
   /// Set the Header Titel
   /// -> str | content
-  header-titel: none,
+  header-title: none,
   /// Set if document should be justified.
   /// -> bool
   justify: true,
@@ -64,7 +64,7 @@
   bibliography: none,
   /// Set the title of the bibliography.
   /// -> str | content
-  bib-titel: "Bibliography",
+  bib-title: "Bibliography",
   /// Set the width of the figure captions.
   /// -> relative
   fig-caption-width: 75%,
@@ -103,7 +103,7 @@
     )
   }
 
-  set std-bibliography(style: "ieee", title: bib-titel)
+  set std-bibliography(style: "ieee", title: bib-title)
 
   // Referencing Figures
 
@@ -143,7 +143,7 @@
       columns: (1fr, 1fr),
       align: (left, right),
       inset:4pt,
-      smallcaps(header-titel),
+      smallcaps(header-title),
       smallcaps(hydra(1)),
       grid.hline(),
     )
@@ -157,7 +157,7 @@
       align: (left, right),
       inset:4pt,
       smallcaps(hydra(1)),
-      smallcaps(header-titel),
+      smallcaps(header-title),
       grid.hline(),
     )
   }
@@ -208,7 +208,7 @@
   /// The date of the document.
   /// -> string | content | datetime
   date: none,
-  /// Use titel and author information for
+  /// Use title and author information for
   /// the document metadata.
   /// -> bool
   metadata: true,
