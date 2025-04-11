@@ -6,7 +6,7 @@
 #let std-bibliography = bibliography
 
 /// A Template recreating the look of the classic Article Class.
-/// 
+///
 /// Example usage:
 /// ```typ
 /// #show: article.with(
@@ -15,7 +15,7 @@
 /// ```
 /// This will format the document with the specified options.
 /// For more styling options, explore the following parameters.
-/// 
+///
 /// -> content
 #let article(
   /// Set the language of the document.
@@ -79,6 +79,9 @@
   /// Set the width of the figure captions.
   /// -> relative
   fig-caption-width: 75%,
+  /// Set the width of the headerline.
+  /// -> length
+  header-line-stroke: .6pt,
   ///-> content
   content,
 ) = {
@@ -106,11 +109,14 @@
   set heading(numbering: heading-numbering)
   set enum(indent: enum-indent)
   set list(indent: list-indent)
-  show outline.entry.where(level:1): {
+  show outline.entry.where(level: 1): {
     it => link(
       it.element.location(),
-      it.indented(strong(it.prefix()), strong((it.body()) + h(1fr) + it.page()), 
-      gap:0.5em),
+      it.indented(
+        strong(it.prefix()),
+        strong((it.body()) + h(1fr) + it.page()),
+        gap: 0.5em,
+      ),
     )
   }
 
@@ -132,7 +138,6 @@
     inset: (right: 1.5em),
   )
 
-
   show figure.caption: it => {
     set par(justify: true)
     let prefix = {
@@ -149,7 +154,7 @@
 
   let header-oddPage = context {
     set text(10pt)
-    set grid.hline(stroke: 0.9pt)
+    set grid.hline(stroke: header-line-stroke)
     grid(
       columns: (1fr, 1fr),
       align: (left, right),
@@ -162,7 +167,7 @@
 
   let header-evenPage = context {
     set text(10pt)
-    set grid.hline(stroke: 0.9pt)
+    set grid.hline(stroke: header-line-stroke)
     grid(
       columns: (1fr, 1fr),
       align: (left, right),
@@ -208,23 +213,23 @@
 }
 
 /// Function to format the Appendix. This function is intended to be used after the document has been styled with the `article` function.
-/// 
+///
 /// Example usage:
 /// ```typ
 /// #show: article.with()
 /// // A lot of content goes here...
-/// 
+///
 /// #show: appendix.with(
 ///   title: "Appendix",
 ///   title-align: center,
 /// )
 /// ```
-/// 
+///
 /// -> content
 #let appendix(
   /// The numbering of the Appendix
   /// -> none | str | function
-  numbering:"A.1",
+  numbering: "A.1",
   /// The title of the Appendix
   /// -> none | str | content
   title: none,
@@ -236,15 +241,16 @@
   title-size: none,
   /// Startting the appendex after this number
   /// -> int
-  numbering-start:0,
-  content
+  numbering-start: 0,
+  content,
 ) = {
   context counter(heading).update(numbering-start)
   set heading(numbering: numbering)
 
   // Optional Title
+
   if title != none {
-    show heading.where(level:1, numbering:none): it => {
+    show heading.where(level: 1, numbering: none): it => {
       if title-size != none {
         set text(size: title-size)
         it
