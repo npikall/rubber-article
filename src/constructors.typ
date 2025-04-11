@@ -4,7 +4,7 @@
 
 /// This function will display the frontmatter of the document.
 /// This includes the title, authors, and date.
-/// 
+///
 /// Example usage:
 /// ```typ
 /// #maketitle(
@@ -13,7 +13,7 @@
 ///   date: "2025-01-01",
 /// )
 /// ```
-/// 
+///
 /// -> content
 #let maketitle(
   /// The title of the document.
@@ -60,3 +60,42 @@
     ]
   }
 
+  /// This function will display a custom table. The table uses the `pillar` package
+  /// under the hood to interact with the table in a similar manner as in Latex.
+  /// This means, that the columns and vertical lines can be defined with a string.
+  /// Furthermore, the table automatically adds 3 horizontal lines.
+  ///
+  ///
+  /// Example usage:
+  /// ```typ
+  /// #ctable(
+  ///   cols:"l|cr",
+  ///   [A], [B], [C],
+  ///  ..range(1,16).map(str),
+  /// )
+  /// ```
+  /// -> content
+  #let ctable(
+    ..data,
+    /// A string that defines the columns and vertical lines of the table.
+    /// -> string
+    cols: "ccc",
+    /// The linesytle of the table, especially the top and bottom horizontal lines.
+    /// -> length
+    stroke: .75pt,
+    /// The linesytle of the middle horizontal line.
+    /// -> length
+    middle-stroke: .6pt,
+    /// The linesytle of the vertical lines.
+    /// -> length
+    vertical-stroke: .75pt,
+    /// The number of header rows.
+    /// -> int
+    header-rows: 1,
+  ) = table(
+    ..pillar.cols(cols, stroke: vertical-stroke),
+    table.hline(y: 0, stroke: stroke),
+    table.hline(y: header-rows, stroke: middle-stroke),
+    ..data,
+    table.hline(stroke: stroke),
+  )
