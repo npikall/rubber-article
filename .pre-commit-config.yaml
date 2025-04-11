@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0  # the release, git tag, or commit you want to use
+    hooks:
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: detect-private-key
+
+  - repo: https://github.com/jeffa5/typstfmt
+    rev: ade0a3553464f7833716d4242f97cfb12e212429
+    hooks:
+      - id: typstfmt
