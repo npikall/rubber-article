@@ -81,7 +81,7 @@
   fig-caption-width: 75%,
   /// Set the width of the headerline.
   /// -> length
-  header-line-stroke: .6pt,
+  header-line-stroke: .65pt,
   ///-> content
   content,
 ) = {
