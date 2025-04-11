@@ -1,7 +1,7 @@
 #import "@preview/tidy:0.4.1"
 #import "../src/lib.typ"
-#import "@preview/codly:1.2.0": *
-#import "@preview/codly-languages:0.1.1": *
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.8": *
 
 
 #show: codly-init.with()
@@ -9,9 +9,12 @@
 
 #show heading.where(level: 1): it => align(center, it)
 
-= Rubber Article - Template Documentation
-#align(center, heading(level:2, [v.0.3.1]))
+#heading(outlined: false)[Rubber Article - Template Documentation]
+#align(center, heading(level:2, [v.0.3.1], outlined: false))
 #v(1cm)
+
+#outline(depth: 3)
+
 == Example Usage
 ```typ
 #import "@preview/rubber-article:0.3.1": *
@@ -22,15 +25,35 @@
   date: datetime.today().display("[day].[month].[year]"),
 )
 ```
+== Styling functions
+These functions are used to style certain elements of the document. They are usually called with a `#show` statement. They do not output any content, but rather modify the appearance of the document.
 
-#let docs = tidy.parse-module(
-  read("../src/lib.typ"),
-  name:"rubber-article",
+#let docs-styles = tidy.parse-module(
+  read("../src/styles.typ"),
+  // name:"Styling functions",
   scope: (rubber-article: lib),
   preamble: "#import rubber-article: *\n"
 )
 
 #tidy.show-module(
-  docs,
+  docs-styles,
   style: tidy.styles.default,
 )
+
+
+#pagebreak()
+== Constructor functions
+These functions are used to create certain elements of the document. They can be called with certain arguments and output some content.
+
+#let docs-constructors = tidy.parse-module(
+  read("../src/constructors.typ"),
+  // name:"Constructor functions",
+  scope: (rubber-article: lib),
+  preamble: "#import rubber-article: *\n"
+)
+
+#tidy.show-module(
+  docs-constructors,
+  style: tidy.styles.default,
+)
+

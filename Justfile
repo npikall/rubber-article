@@ -10,6 +10,10 @@ default:
 doc:
 	typst compile docs/docs.typ docs/docs.pdf
 
+# compile the template
+template:
+  typst compile template/main.typ --package-path ~/.local/share/typst/packages
+
 # package the library into the specified destination folder
 package target:
   ./scripts/package "{{target}}"
