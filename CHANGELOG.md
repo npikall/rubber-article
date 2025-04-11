@@ -1,3 +1,10 @@
+# [v0.3.2](https://github.com/npikall/rubber-article/releases/tag/v0.3.2)
+New Features:
+- fix: typo in function arguments
+- fragmentized, cleared up codebase 
+- table function with standard formatting 
+- header linewidth
+
 # [v0.3.1](https://github.com/npikall/rubber-article/releases/tag/v0.3.1)
 New Feature:
 - new function to only format the appendix
