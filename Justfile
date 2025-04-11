@@ -14,6 +14,14 @@ doc:
 template:
   typst compile template/main.typ --package-path ~/.local/share/typst/packages
 
+# run test suite
+test *args:
+  tt run {{ args }}
+
+# update test cases
+update *args:
+  tt update {{ args }}
+
 # package the library into the specified destination folder
 package target:
   ./scripts/package "{{target}}"
@@ -35,7 +43,7 @@ uninstall: (remove "@local")
 uninstall-preview: (remove "@preview")
 
 # run ci suite
-ci: doc
+ci: test doc
 
 # update the package version
 bump old new:
