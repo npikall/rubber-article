@@ -3,21 +3,20 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.8": *
 
-
 #show: codly-init.with()
 #codly(languages: codly-languages)
 
 #show heading.where(level: 1): it => align(center, it)
 
 #heading(outlined: false)[Rubber Article - Template Documentation]
-#align(center, heading(level:2, [v.0.3.1], outlined: false))
+#align(center, heading(level: 2, [v.0.3.2], outlined: false))
 #v(1cm)
 
 #outline(depth: 3)
 
 == Example Usage
 ```typ
-#import "@preview/rubber-article:0.3.1": *
+#import "@preview/rubber-article:0.3.2": *
 #show: article.with()
 #maketitle(
   title: "The Title of the Paper",
@@ -32,14 +31,13 @@ These functions are used to style certain elements of the document. They are usu
   read("../src/styles.typ"),
   // name:"Styling functions",
   scope: (rubber-article: lib),
-  preamble: "#import rubber-article: *\n"
+  preamble: "#import rubber-article: *\n",
 )
 
 #tidy.show-module(
   docs-styles,
   style: tidy.styles.default,
 )
-
 
 #pagebreak()
 == Constructor functions
@@ -49,11 +47,10 @@ These functions are used to create certain elements of the document. They can be
   read("../src/constructors.typ"),
   // name:"Constructor functions",
   scope: (rubber-article: lib),
-  preamble: "#import rubber-article: *\n"
+  preamble: "#import rubber-article: *\n",
 )
 
 #tidy.show-module(
   docs-constructors,
   style: tidy.styles.default,
 )
-
