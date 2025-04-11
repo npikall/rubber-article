@@ -40,6 +40,18 @@ y = k x + d
 $
 #lorem(50)
 
+// Example of a custom table
+#figure(
+  ctable(
+    cols: "l|cr",
+    [A],
+    [B],
+    [C],
+    ..range(1, 16).map(str),
+  ),
+  caption: "This is a custom table",
+)
+
 #show: appendix.with(
   title: "Appendix",
 )
@@ -49,5 +61,3 @@ $
 
 == Some more details
 #lorem(20)
-
-
