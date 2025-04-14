@@ -43,7 +43,7 @@ uninstall: (remove "@local")
 uninstall-preview: (remove "@preview")
 
 # run ci suite
-ci: test doc
+ci: test
 
 # update the package version
 bump old new:
