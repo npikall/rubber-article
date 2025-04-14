@@ -11,6 +11,7 @@ repository = "https://github.com/npikall/rubber-article.git"
 keywords = ["template", "article"]
 categories = ["paper", "report"]
 disciplines = ["biology", "chemistry", "engineering", "geography", "mathematics", "physics"]
+compiler = "0.13.0"
 exclude = [
 	".github",
 	"docs",
