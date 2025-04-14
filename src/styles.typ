@@ -92,6 +92,8 @@
     number-align: page-numbering-align,
   )
   set text(font: "New Computer Modern", lang: lang, size: text-size)
+  set par(leading: 0.55em, spacing: 0.55em, first-line-indent: 1.8em, justify: true)
+  show heading: set block(above: 1.4em, below: 1em)
 
   // Set the equation numbering style.
 
@@ -195,8 +197,6 @@
   set page(header: header-content) if show-header
 
   // Main body.
-
-  set par(justify: justify)
 
   content
 
