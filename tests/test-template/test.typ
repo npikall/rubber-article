@@ -1,4 +1,4 @@
-#import "@preview/rubber-article:0.3.2": *
+#import "../../src/lib.typ": *
 
 #show: article.with(
   show-header: true,

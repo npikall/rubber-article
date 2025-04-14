@@ -1,5 +1,5 @@
 #set page(width: auto, height: auto)
-#import "@preview/rubber-article:0.3.2":*
+#import "../../src/lib.typ":*
 
 // Test the maketitle function
 #maketitle(
