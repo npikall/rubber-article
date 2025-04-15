@@ -55,6 +55,19 @@ Some features are not from the original LaTeX article class, but have been added
 Feel free to open an issue or a pull request in the [repository].
 Questions, suggestions and feature requests are always welcome.
 
+## Local Installation
+To install this template locally, follow the steps below:
+
+- Install `Just` task runner
+- Clone the [repository]
+- run `just install`
+
+The template can then be imported with 
+```typ 
+#import "@local/rubber-article:0.3.2"
+```
+To install the package in the preview namespace, run `just install-preview` instead.
+
 
 [guide]: https://github.com/npikall/rubber-article/tree/main/docs/docs.pdf
 [repository]: https://github.com/npikall/rubber-article
