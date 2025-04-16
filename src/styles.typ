@@ -2,9 +2,6 @@
 
 #import "dependencies.typ": *
 
-// Workaround for the lack of `std` scope
-#let std-bibliography = bibliography
-
 /// A Template recreating the look of the classic Article Class.
 ///
 /// Example usage:
@@ -64,18 +61,6 @@
   /// Set if document should be justified.
   /// -> bool
   justify: true,
-  /// Add an appendix to the document.
-  /// -> content
-  appendix: none,
-  /// Set the appendix numbering style.
-  /// -> none | str | function
-  appendix-numbering: "A.1",
-  /// Add a bibliography to the document.
-  /// -> content
-  bibliography: none,
-  /// Set the title of the bibliography.
-  /// -> str | content
-  bib-title: "Bibliography",
   /// Set the width of the figure captions.
   /// -> relative
   fig-caption-width: 75%,
@@ -85,7 +70,9 @@
   ///-> content
   content,
 ) = {
+  import "utils.typ": reset-eq-counter, header-content, header-oddPage, header-evenPage
   // Set the document's basic properties.
+
   set page(
     margin: margins,
     numbering: page-numbering,
@@ -100,11 +87,6 @@
   // Set the equation numbering style.
 
   let chapterwise-numbering = (..num) => numbering(eq-numbering, counter(heading).get().first(), num.pos().first())
-
-  let reset-eq-counter = it => {
-    counter(math.equation).update(0)
-    it
-  }
   show heading.where(level: 1): if eq-chapterwise {reset-eq-counter} else {it => it}
 
   set math.equation(numbering: eq-numbering) if not eq-chapterwise
@@ -124,13 +106,10 @@
     )
   }
 
-  set std-bibliography(style: "ieee", title: bib-title)
-
-  // Referencing Figures
+  // Figure styles
 
   show figure.where(kind: table): set figure(supplement: [Tab.], numbering: "1") if lang == "de"
   show figure.where(kind: image): set figure(supplement: [Abb.], numbering: "1", ) if lang == "de"
-
   show figure.where(kind: table): set figure.caption(position: top)
 
   // Set Table style
@@ -141,6 +120,7 @@
     fill: none,
     inset: (right: 1.5em),
   )
+  // Emphasize the figure caption numbering
 
   show figure.caption: it => {
     set par(justify: true)
@@ -156,62 +136,14 @@
 
   // Configure the header.
 
-  let header-oddPage = context {
-    set text(10pt)
-    set grid.hline(stroke: header-line-stroke)
-    grid(
-      columns: (1fr, 1fr),
-      align: (left, right),
-      inset:4pt,
-      smallcaps(header-title),
-      smallcaps(hydra(1)),
-      grid.hline(),
-    )
-  }
-
-  let header-evenPage = context {
-    set text(10pt)
-    set grid.hline(stroke: header-line-stroke)
-    grid(
-      columns: (1fr, 1fr),
-      align: (left, right),
-      inset:4pt,
-      smallcaps(hydra(1)),
-      smallcaps(header-title),
-      grid.hline(),
-    )
-  }
-
-  let header-content = context {
-    let current = counter(page).get().first()
-
-    if current > first-page-header and calc.rem(current,2) == 0{
-      return header-evenPage
-    } else if current > first-page-header {
-      if alternating-header {
-        return header-oddPage
-      } else {
-        return header-evenPage
-      }
-    }
-  }
-
+  let header-oddPage = header-oddPage(header-line-stroke)
+  let header-evenPage = header-evenPage(header-line-stroke)
+  let header-content = header-content(first-page-header, alternating-header)
   set page(header: header-content) if header-display
 
   // Main body.
 
   content
-
-  if bibliography != none {
-    pagebreak(weak: true)
-    bibliography
-  }
-
-  if appendix != none {
-    context counter(heading).update(0)
-    set heading(numbering: appendix-numbering)
-    appendix
-  }
 }
 
 /// Function to format the Appendix. This function is intended to be used after the document has been styled with the `article` function.
