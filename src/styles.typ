@@ -136,9 +136,14 @@
 
   // Configure the header.
 
-  let header-oddPage = header-oddPage(header-line-stroke)
-  let header-evenPage = header-evenPage(header-line-stroke)
-  let header-content = header-content(first-page-header, alternating-header)
+  let header-oddPage = header-oddPage(header-line-stroke, header-title)
+  let header-evenPage = header-evenPage(header-line-stroke, header-title)
+  let header-content = header-content(
+    first-page-header,
+    alternating-header,
+    oddPage: header-oddPage,
+    evenPage: header-evenPage,
+  )
   set page(header: header-content) if header-display
 
   // Main body.

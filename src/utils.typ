@@ -1,11 +1,13 @@
 // This file contains utility functions used in other functions.
 
+#import "dependencies.typ": *
+
 #let reset-eq-counter = it => {
   counter(math.equation).update(0)
   it
 }
 
-#let header-oddPage(header-line-stroke) = context {
+#let header-oddPage(header-line-stroke, header-title) = context {
   set text(10pt)
   set grid.hline(stroke: header-line-stroke)
   grid(
@@ -18,7 +20,7 @@
   )
 }
 
-#let header-evenPage(header-line-stroke) = context {
+#let header-evenPage(header-line-stroke, header-title) = context {
   set text(10pt)
   set grid.hline(stroke: header-line-stroke)
   grid(
@@ -31,16 +33,21 @@
   )
 }
 
-#let header-content(first-page-header, alternating-header) = context {
+#let header-content(
+  first-page-header,
+  alternating-header,
+  oddPage: header-oddPage,
+  evenPage: header-evenPage,
+) = context {
   let current = counter(page).get().first()
 
   if current > first-page-header and calc.rem(current,2) == 0{
-    return header-evenPage
+    return evenPage
   } else if current > first-page-header {
     if alternating-header {
-      return header-oddPage
+      return oddPage
     } else {
-      return header-evenPage
+      return evenPage
     }
   }
 }
