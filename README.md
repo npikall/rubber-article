@@ -47,7 +47,7 @@ For now here are a few of the most important parameters of the main function.
   page-numbering: "1",
   page-numbering-align: center,
   heading-numbering: "1.1",
-  show-header: false,
+  header-display: false,
   fig-caption-width:70%,
 )
 ```
