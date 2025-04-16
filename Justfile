@@ -10,6 +10,10 @@ default:
 doc:
 	typst compile docs/docs.typ docs/docs.pdf
 
+# generate the thumbnail
+thumbnail:
+  typst compile docs/thumbnail.typ thumbnail.png
+
 # compile the template
 template:
   typst compile template/main.typ --package-path ~/.local/share/typst/packages
