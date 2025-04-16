@@ -118,7 +118,6 @@
     stroke: none,
     gutter: auto,
     fill: none,
-    inset: (right: 1.5em),
   )
   // Emphasize the figure caption numbering
 
