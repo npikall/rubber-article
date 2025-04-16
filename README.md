@@ -6,7 +6,7 @@
 
 
 
-<!-- <div align="center">Version 0.3.2</div> -->
+<!-- <div align="center">Version 0.4.0</div> -->
 
 This template is intended as a starting point for creating documents, which should have the classic LaTeX Article look.
 
@@ -19,9 +19,9 @@ typst init @preview/rubber-article
 ```
 This will create a new Typst project in the current directory with the `rubber-article` template, with some example content, applied.
 
-The following code snippet shows the minimal example of how to use the template. 
+The following code snippet shows the minimal example of how to use the template.
 ```typ
-#import "@preview/rubber-article:0.3.2": *
+#import "@preview/rubber-article:0.4.0": *
 
 #show: article.with()
 
@@ -64,9 +64,9 @@ To install this template locally, follow the steps below:
 - Clone the [repository]
 - run `just install`
 
-The template can then be imported with 
-```typ 
-#import "@local/rubber-article:0.3.2"
+The template can then be imported with
+```typ
+#import "@local/rubber-article:0.4.0"
 ```
 To install the package in the preview namespace, run `just install-preview` instead.
 

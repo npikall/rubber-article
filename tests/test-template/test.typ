@@ -1,10 +1,11 @@
 #import "../../src/lib.typ": *
 
 #show: article.with(
-  show-header: true,
+  header-display: true,
   header-title: "The Title of the Paper",
   eq-numbering: "(1.1)",
   eq-chapterwise: true,
+  margins: 1.75in,
 )
 
 #maketitle(
@@ -15,25 +16,29 @@
 
 // Some example content has been added for you to see how the template looks like.
 = Introduction
-#lorem(60)
+#lorem(140)
+
+#lorem(100)
+$
+x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c))/ (2 a)
+$
+#lorem(100)
+
+== In this paper
+#lorem(70)
 
 #figure(
   rect(width: 4cm, height: 3cm),
   caption: [#lorem(30)],
 )
 
-== In this paper
-#lorem(20)
-$
-x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c))/ (2 a)
-$
 #lorem(20)
 
 === Contributions
 #lorem(40)
 
 = Related Work
-#lorem(300)
+#lorem(200)
 
 $
 y = k x + d
