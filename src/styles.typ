@@ -51,7 +51,7 @@
   list-indent: 1.5em,
   /// Set if the default header should be used.
   /// -> bool
-  show-header: false,
+  header-display: false,
   /// Set if the default header should be alternating.
   /// -> bool
   alternating-header: true,
@@ -94,6 +94,8 @@
   set text(font: "New Computer Modern", lang: lang, size: text-size)
   set par(leading: 0.55em, spacing: 0.55em, first-line-indent: 1.8em, justify: true)
   show heading: set block(above: 1.4em, below: 1em)
+  show math.equation: set block(above: 2em, below: 2em)
+  show figure: set block(above: 2em, below: 2em)
 
   // Set the equation numbering style.
 
@@ -194,7 +196,7 @@
     }
   }
 
-  set page(header: header-content) if show-header
+  set page(header: header-content) if header-display
 
   // Main body.
 
