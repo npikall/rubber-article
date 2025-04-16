@@ -1,8 +1,15 @@
+# [v0.4.0](https://github.com/npikall/rubber-article/releases/tag/v0.4.0)
+- added tests
+- fixed spacings of the paragraphs, figures and equations
+- removed appendix and bibliography feature, because of redundancy
+- fixed Table cell spaces
+- changed the template
+
 # [v0.3.2](https://github.com/npikall/rubber-article/releases/tag/v0.3.2)
 New Features:
 - fix: typo in function arguments
-- fragmentized, cleared up codebase 
-- table function with standard formatting 
+- fragmentized, cleared up codebase
+- table function with standard formatting
 - header linewidth
 
 # [v0.3.1](https://github.com/npikall/rubber-article/releases/tag/v0.3.1)
