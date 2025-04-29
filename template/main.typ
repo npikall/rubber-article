@@ -29,7 +29,7 @@ $
 
 #figure(
   rect(width: 4cm, height: 3cm),
-  caption: [#lorem(30)],
+  caption: shortcap([A short caption of the image], [#lorem(30)]),
 )
 
 #lorem(20)
@@ -54,9 +54,10 @@ $
     [C],
     ..range(1, 16).map(str),
   ),
-  caption: "This is a custom table",
+  caption: shortcap("Short caption", "This is a custom table"),
 )
 
+#pagebreak()
 #show: appendix.with(
   title: "Appendix",
 )
@@ -66,3 +67,6 @@ $
 
 == Some more details
 #lorem(20)
+
+#fig-outline()
+#tab-outline()

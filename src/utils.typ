@@ -51,3 +51,5 @@
     }
   }
 }
+
+#let outlined = state("outlined", false)
