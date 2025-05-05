@@ -1,3 +1,9 @@
+# [v0.4.1](https://github.com/npikall/rubber-article/releases/tag/v0.4.1)
+- new function for the list of figures
+- new function for the list of tables
+- new feature for short and long captions (one outlined, one with the figure)
+- fixed figure and table outline style
+
 # [v0.4.0](https://github.com/npikall/rubber-article/releases/tag/v0.4.0)
 - added tests
 - fixed spacings of the paragraphs, figures and equations
