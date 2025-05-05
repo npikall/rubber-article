@@ -9,14 +9,14 @@
 #show heading.where(level: 1): it => align(center, it)
 
 #heading(outlined: false)[Rubber Article - Template Documentation]
-#align(center, heading(level: 2, [v.0.4.0], outlined: false))
+#align(center, heading(level: 2, [v.0.4.1], outlined: false))
 #v(1cm)
 
 #outline(depth: 3)
 
 == Example Usage
 ```typ
-#import "@preview/rubber-article:0.4.0": *
+#import "@preview/rubber-article:0.4.1": *
 #show: article.with()
 #maketitle(
   title: "The Title of the Paper",
