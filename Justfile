@@ -12,7 +12,6 @@ doc:
 
 # generate the thumbnail
 thumbnail:
-  typst compile docs/thumbnail.typ thumbnail.png
   typst compile docs/thumbnail.typ thumbnail-light.svg
   typst compile --input theme=dark docs/thumbnail.typ thumbnail-dark.svg
 
