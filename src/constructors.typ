@@ -1,6 +1,7 @@
 // This file contains functions that will generate some content.
 
 #import "dependencies.typ": *
+#import "utils.typ": outlined
 
 /// This function will display the frontmatter of the document.
 /// This includes the title, authors, and date.
@@ -88,7 +89,7 @@
     middle-stroke: .6pt,
     /// The linesytle of the vertical lines.
     /// -> length
-    vertical-stroke: .75pt,
+    vertical-stroke: .6pt,
     /// The number of header rows.
     /// -> int
     header-rows: 1,
@@ -98,4 +99,71 @@
     table.hline(y: header-rows, stroke: middle-stroke),
     ..data,
     table.hline(stroke: stroke),
+  )
+
+  /// This function will help you to provide a long caption to a figure,
+  /// but a short caption to the outline.
+  ///
+  /// Example usage:
+  /// ```typ
+  /// #figure(
+  ///   rect(),
+  ///   caption: shortcap("Short caption", "Long caption"),
+  /// )
+  /// ```
+  ///
+  /// -> content
+  #let shortcap(
+    /// The short caption of the figure.
+    /// -> string | content
+    short,
+    /// The long caption of the figure.
+    /// -> string | content
+    long,
+  ) = context if outlined.get() { short } else { long }
+
+  /// This function is a wrapper of the `outline` function and allows for an easy
+  /// way to create the table of figures.
+  ///
+  /// Example usage:
+  /// ```typ
+  /// #fig-outline()
+  /// ```
+  /// -> content
+  #let fig-outline(
+    /// The title of the table of figures.
+    /// -> string | content
+    title: "List of Figures",
+    /// The Target of the table of figures.
+    /// -> label | selector | location | function
+    target: figure.where(kind: image),
+    /// Additional optional arguments to the outline function.
+    ..args,
+  ) = outline(
+    target: target,
+    title: title,
+    ..args,
+  )
+
+  /// This function is a wrapper of the `outline` function and allows for an easy
+  /// way to create the list of tables.
+  ///
+  /// Example usage:
+  /// ```typ
+  /// #tab-outline()
+  /// ```
+  /// -> content
+  #let tab-outline(
+    /// The title of the table of figures.
+    /// -> string | content
+    title: "List of Tables",
+    /// The Target of the table of figures.
+    /// -> label | selector | location | function
+    target: figure.where(kind: table),
+    /// Additional optional arguments to the outline function.
+    ..args,
+  ) = outline(
+    target: target,
+    title: title,
+    ..args,
   )

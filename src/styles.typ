@@ -1,6 +1,7 @@
 // This file contains functions that will set the styles for the documents.
 
 #import "dependencies.typ": *
+#import "utils.typ": outlined
 
 /// A Template recreating the look of the classic Article Class.
 ///
@@ -104,6 +105,41 @@
         gap: 0.5em,
       ),
     )
+  }
+  show outline: it => {
+    outlined.update(true)
+    it
+    outlined.update(false)
+  }
+
+  // Outline styling for image figures
+
+  show outline.where(target: figure.where(kind: image)): it => {
+    show outline.entry.where(level: 1): {
+      it => link(
+        it.element.location(),
+        it.indented(
+          strong(it.prefix()),
+          it.inner(),
+        ),
+      )
+    }
+    it
+  }
+
+  // Outline styling for table figures
+
+  show outline.where(target: figure.where(kind: table)): it => {
+    show outline.entry.where(level: 1): {
+      it => link(
+        it.element.location(),
+        it.indented(
+          strong(it.prefix()),
+          it.inner(),
+        ),
+      )
+    }
+    it
   }
 
   // Figure styles

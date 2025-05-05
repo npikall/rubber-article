@@ -18,3 +18,43 @@
   [C],
   ..range(1, 16).map(str),
 )
+
+// Test the custom figure outline
+#pagebreak()
+
+// Example of a image
+#figure(
+  rect(),
+  caption: "Fig1",
+)
+#figure(
+  rect(),
+  caption: "Fig2",
+)
+#fig-outline()
+
+// Test the custom figure outline
+#pagebreak()
+
+// Example of a image
+#figure(
+  table(
+    columns: 3,
+    [A],
+    [B],
+    [C],
+    ..range(12).map(str),
+  ),
+  caption: "Tab1",
+)
+#figure(
+  table(
+    columns: 3,
+    [A],
+    [B],
+    [C],
+    ..range(12).map(str),
+  ),
+  caption: "Tab2",
+)
+#tab-outline()
