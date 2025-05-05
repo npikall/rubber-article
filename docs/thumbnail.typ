@@ -8,6 +8,11 @@
   margins: 1.75in,
 )
 
+// Style thumbnail for light and dark themes
+#set page(fill: none)
+#let theme = sys.inputs.at("theme", default: "light")
+#set text(white) if theme == "dark"
+
 #maketitle(
   title: "The Title of the Paper",
   authors: ("Authors Name",),
