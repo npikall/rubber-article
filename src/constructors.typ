@@ -167,3 +167,30 @@
     title: title,
     ..args,
   )
+
+/// This function will display an abstract section with a title and content.
+#let abstract(
+  /// The title of the abstract.
+  /// -> string | content
+  title: "Abstract",
+  /// The alignment of the abstract.
+  /// -> alignment
+  alignment: left,
+  /// If the heading should be outlined.
+  /// -> bool
+  outlined: true, 
+  /// The numbering of the heading.
+  /// -> numbering
+  numbering: none,
+  /// The width of the abstract block.
+  /// -> length
+  width: auto,
+  /// The content of the abstract.
+  /// -> string | content
+  content,
+) = {
+  align(alignment)[
+    #heading(outlined: outlined, numbering: numbering, title)
+    #block(content, width:width)
+  ]
+}
