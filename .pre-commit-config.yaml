@@ -6,7 +6,14 @@ repos:
       - id: check-added-large-files
       - id: detect-private-key
 
-  - repo: https://github.com/jeffa5/typstfmt
-    rev: ade0a3553464f7833716d4242f97cfb12e212429
+  - repo: local
     hooks:
-      - id: typstfmt
+      - id: typstyle
+        name: typstyle
+        description: Format files with typstyle
+        entry: typstyle
+        language: rust
+        types: [file]
+        additional_dependencies: ["cli:typstyle:0.13.9"]
+        files: \.typ$
+        args: ["-i", "--wrap-text", "--line-width=80"]
