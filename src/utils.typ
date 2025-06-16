@@ -53,3 +53,24 @@
 }
 
 #let outlined = state("outlined", false)
+
+/// Balance the content of columns.
+/// #show link: set text(fill:blue)
+/// Credits go to: #link("https://github.com/typst/typst/issues/466")
+///
+/// Example usage:
+/// ```typ
+/// #balance(columns(n)[#lorem(80)])
+/// ```
+///
+/// -> content
+#let balance(content) = layout(size => {
+  let count = content.at("count")
+  let textheight = measure(content).at("height")
+  let linegap = par.leading.em * textheight
+  let (height,) = measure(block(width: size.width, content))
+  let lines = calc.ceil((height - textheight) / count / (textheight + linegap))
+  let newheight = lines * (textheight + linegap) + textheight
+  [#block(height: newheight)[#content]]
+})
+
