@@ -1,3 +1,9 @@
+# [v0.4.2](https://github.com/npikall/rubber-article/releases/tag/v0.4.2)
+- new function for abstract
+- new option to set columns for entire document
+- changed default behaviour of metadata in `maketitle`
+- added `balance` function for balancing columns in the document
+
 # [v0.4.1](https://github.com/npikall/rubber-article/releases/tag/v0.4.1)
 - new function for the list of figures
 - new function for the list of tables

@@ -6,7 +6,7 @@
 
 
 
-<!-- <div align="center">Version 0.4.1</div> -->
+<!-- <div align="center">Version 0.4.2</div> -->
 
 This template is intended as a starting point for creating documents, which should have the classic LaTeX Article look.
 
@@ -21,9 +21,9 @@ This will create a new Typst project in the current directory with the `rubber-a
 
 The following code snippet shows the minimal example of how to use the template.
 ```typ
-#import "@preview/rubber-article:0.4.1": *
+#import "@preview/rubber-article:0.4.2": *
 
-#show: article.with()
+#show: article
 
 #maketitle(
   title: "The Title of the Paper",
@@ -49,6 +49,7 @@ For now here are a few of the most important parameters of the main function.
   heading-numbering: "1.1",
   header-display: false,
   fig-caption-width:70%,
+  cols:2,
 )
 ```
 Some features are not from the original LaTeX article class, but have been added, as they have been deemed useful or nice to have. An example would be the built-in header, which displays the Documents title and the current chapter name.
@@ -66,7 +67,7 @@ To install this template locally, follow the steps below:
 
 The template can then be imported with
 ```typ
-#import "@local/rubber-article:0.4.1"
+#import "@local/rubber-article:0.4.2"
 ```
 To install the package in the preview namespace, run `just install-preview` instead.
 
