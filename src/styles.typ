@@ -1,7 +1,7 @@
 // This file contains functions that will set the styles for the documents.
 
 #import "dependencies.typ": *
-#import "utils.typ": outlined
+#import "utils.typ": *
 
 /// A Template recreating the look of the classic Article Class.
 ///
@@ -62,6 +62,9 @@
   /// Set if document should be justified.
   /// -> bool
   justify: true,
+  /// Set the number of columns, that the document should have.
+  /// -> none | int
+  cols: none,
   /// Set the width of the figure captions.
   /// -> relative
   fig-caption-width: 75%,
@@ -71,24 +74,33 @@
   ///-> content
   content,
 ) = {
-  import "utils.typ": reset-eq-counter, header-content, header-oddPage, header-evenPage
   // Set the document's basic properties.
-
   set page(
     margin: margins,
     numbering: page-numbering,
     number-align: page-numbering-align,
   )
   set text(font: "New Computer Modern", lang: lang, size: text-size)
-  set par(leading: 0.55em, spacing: 0.55em, first-line-indent: 1.8em, justify: true)
+  set par(
+    leading: 0.55em,
+    spacing: 0.55em,
+    first-line-indent: 1.8em,
+    justify: true,
+  )
   show heading: set block(above: 1.4em, below: 1em)
   show math.equation: set block(above: 2em, below: 2em)
   show figure: set block(above: 2em, below: 2em)
 
   // Set the equation numbering style.
 
-  let chapterwise-numbering = (..num) => numbering(eq-numbering, counter(heading).get().first(), num.pos().first())
-  show heading.where(level: 1): if eq-chapterwise {reset-eq-counter} else {it => it}
+  let chapterwise-numbering = (..num) => numbering(
+    eq-numbering,
+    counter(heading).get().first(),
+    num.pos().first(),
+  )
+  show heading.where(level: 1): if eq-chapterwise { reset-eq-counter } else {
+    it => it
+  }
 
   set math.equation(numbering: eq-numbering) if not eq-chapterwise
   set math.equation(numbering: chapterwise-numbering) if eq-chapterwise
@@ -97,14 +109,11 @@
   set enum(indent: enum-indent)
   set list(indent: list-indent)
   show outline.entry.where(level: 1): {
-    it => link(
-      it.element.location(),
-      it.indented(
-        strong(it.prefix()),
-        strong((it.body()) + h(1fr) + it.page()),
-        gap: 0.5em,
-      ),
-    )
+    it => link(it.element.location(), it.indented(
+      strong(it.prefix()),
+      strong((it.body()) + h(1fr) + it.page()),
+      gap: 0.5em,
+    ))
   }
   show outline: it => {
     outlined.update(true)
@@ -116,13 +125,10 @@
 
   show outline.where(target: figure.where(kind: image)): it => {
     show outline.entry.where(level: 1): {
-      it => link(
-        it.element.location(),
-        it.indented(
-          strong(it.prefix()),
-          it.inner(),
-        ),
-      )
+      it => link(it.element.location(), it.indented(
+        strong(it.prefix()),
+        it.inner(),
+      ))
     }
     it
   }
@@ -131,36 +137,36 @@
 
   show outline.where(target: figure.where(kind: table)): it => {
     show outline.entry.where(level: 1): {
-      it => link(
-        it.element.location(),
-        it.indented(
-          strong(it.prefix()),
-          it.inner(),
-        ),
-      )
+      it => link(it.element.location(), it.indented(
+        strong(it.prefix()),
+        it.inner(),
+      ))
     }
     it
   }
 
   // Figure styles
 
-  show figure.where(kind: table): set figure(supplement: [Tab.], numbering: "1") if lang == "de"
-  show figure.where(kind: image): set figure(supplement: [Abb.], numbering: "1", ) if lang == "de"
+  show figure.where(kind: table): set figure(
+    supplement: [Tab.],
+    numbering: "1",
+  ) if lang == "de"
+  show figure.where(kind: image): set figure(
+    supplement: [Abb.],
+    numbering: "1",
+  ) if lang == "de"
   show figure.where(kind: table): set figure.caption(position: top)
 
   // Set Table style
 
-  set table(
-    stroke: none,
-    gutter: auto,
-    fill: none,
-  )
+  set table(stroke: none, gutter: auto, fill: none)
+
   // Emphasize the figure caption numbering
 
   show figure.caption: it => {
     set par(justify: true)
     let prefix = {
-      it.supplement + " " + context it.counter.display(it.numbering)+ ": "
+      it.supplement + " " + context it.counter.display(it.numbering) + ": "
     }
     let cap = {
       strong(prefix)
@@ -183,7 +189,10 @@
 
   // Main body.
 
-  content
+  if cols != none {
+    show: rest => columns(cols, rest)
+    content
+  } else { content }
 }
 
 /// Function to format the Appendix. This function is intended to be used after the document has been styled with the `article` function.
