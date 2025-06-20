@@ -2,7 +2,7 @@
 #import "../src/lib.typ"
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.8": *
-#import "@local/vienna-tech:1.1.0": fancy-latex, fancy-typst
+#import "@preview/vienna-tech:1.1.0": fancy-latex, fancy-typst
 
 
 #set par(justify: true)
