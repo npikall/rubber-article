@@ -39,7 +39,7 @@ For an indepth look into the functionality checkout the [guide].
 For now here are a few of the most important parameters of the main function.
 
 ```typ
-#show article.with(
+#show: article.with(
   lang:"de",
   eq-numbering:"(1.1)",
   eq-chapterwise:true,
