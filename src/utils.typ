@@ -74,3 +74,7 @@
   [#block(height: newheight)[#content]]
 })
 
+
+/// A vertical space, which is weakly enforced.
+/// This is useful to add space between paragraphs if the default spacing is not sufficient.
+#let vspace = v(1.5em, weak: true)
