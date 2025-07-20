@@ -1,20 +1,18 @@
-#import "@preview/rubber-article:0.4.2": *
+#import "@preview/rubber-article:0.5.0": *
 
 #show: article.with(
-  lang: "en",
+  cols: none, // Tip: use #colbreak() instead of #pagebreak() to avoid error when useing columns
+  eq-chapterwise: true,
+  eq-numbering: "(1.1)",
   header-display: true,
   header-title: "The Title of the Paper",
-  eq-numbering: "(1.1)",
-  eq-chapterwise: true,
-  margins: 1.75in,
-  cols: none, // Tip: use #colbreak() instead of #pagebreak() to avoid error when useing columns
+  lang: "en",
+  page-margins: 1.75in,
 )
 
-#maketitle(
-  title: "The Title of the Paper",
-  authors: ("Authors Name",),
-  date: datetime.today().display("[day]. [month repr:long] [year]"),
-)
+#maketitle(title: "The Title of the Paper", authors: ("Authors Name",), date: datetime
+  .today()
+  .display("[day]. [month repr:long] [year]"))
 
 // Some example content has been added for you to see how the template looks like.
 // Some features of this template are explained here, so you might want to check it out.
@@ -30,10 +28,9 @@ $
 == In this paper
 #lorem(70)
 
-#figure(rect(width: 4cm, height: 3cm), caption: shortcap(
-  [A short caption of the image],
-  [#lorem(30)],
-))
+#figure(rect(width: 4cm, height: 3cm), caption: shortcap([A short caption of the image], [#lorem(
+    30,
+  )]))
 
 #lorem(20)
 
@@ -49,10 +46,10 @@ $
 #lorem(50)
 
 // Example of a custom table
-#figure(
-  ctable(cols: "l|cr", [A], [B], [C], ..range(1, 16).map(str)),
-  caption: shortcap("Short caption", "This is a custom table"),
-)
+#figure(ctable(cols: "l|cr", [A], [B], [C], ..range(1, 16).map(str)), caption: shortcap(
+  "Short caption",
+  "This is a custom table",
+))
 
 #colbreak()
 #show: appendix.with(title: "Appendix")
