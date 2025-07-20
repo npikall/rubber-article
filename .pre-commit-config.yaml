@@ -14,6 +14,6 @@ repos:
         entry: typstyle
         language: rust
         types: [file]
-        additional_dependencies: ["cli:typstyle:0.13.9"]
+        additional_dependencies: ["cli:typstyle:0.13.13"]
         files: \.typ$
         args: ["-i", "--wrap-text", "--line-width=80"]

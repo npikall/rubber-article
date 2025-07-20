@@ -46,9 +46,13 @@ uninstall: (remove "@local")
 # uninstalls the library from the "@preview" prefix (for pre-release testing)
 uninstall-preview: (remove "@preview")
 
+# run typst package checker
+check:
+  typst-package-check check
+
 # run ci suite
 ci: test doc thumbnail
 
 # update the package version
 bump old new:
-  python ./scripts/update_version.py "{{old}}" "{{new}}"
+  python ./scripts/bump.py "{{old}}" "{{new}}"
