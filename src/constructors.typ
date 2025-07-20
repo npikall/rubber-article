@@ -31,6 +31,9 @@
   /// This does not work when `article` sets columns before!!!
   /// -> bool
   metadata: false,
+  /// The vertical spacing above and below the titleblock.
+  /// -> dict
+  spacing: (above: 60pt, below: 20pt),
 ) = {
   if metadata {
     set document(author: authors.at(0), title: title)
@@ -48,13 +51,13 @@
   // Frontmatter
 
   place(top + center, scope: "parent", float: true, align(center)[
-    #v(60pt)
+    #v(spacing.above)
     #block(text(weight: 400, 18pt, title))
     #v(1em, weak: true)
     #authors-text
     #v(1em, weak: true)
     #block(text(weight: 400, 1.1em, date))
-    #v(20pt)
+    #v(spacing.below)
   ])
 }
 
