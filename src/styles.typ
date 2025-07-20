@@ -16,76 +16,85 @@
 ///
 /// -> content
 #let article(
-  /// Set the language of the document.
-  /// -> str
-  lang: "de",
-  /// Set the equation numbering style.
-  /// -> str | none
-  eq-numbering: none,
+  /// Set the number of columns, that the document should have.
+  /// -> none | int
+  cols: none,
   /// Chapterwise numbering of equations.
   /// -> bool
   eq-chapterwise: false,
+  /// Set the equation numbering style.
+  /// -> str | none
+  eq-numbering: none,
+  /// Set the width of the figure captions.
+  /// -> relative
+  fig-caption-width: 75%,
+  /// Set if the default header should be alternating.
+  /// -> bool
+  header-alternating: true,
+  /// Set if the default header should be used.
+  /// -> bool
+  header-display: false,
+  /// Set the first page of the header.
+  /// -> int | float
+  header-first-page: 1,
+  /// Set the width of the headerline.
+  /// -> length
+  header-line-stroke: .65pt,
+  /// Set the Header Titel
+  /// -> str | content
+  header-title: none,
+  /// Set the heading numbering style.
+  /// -> none | str | function
+  heading-numbering: "1.1",
+  /// Set the language of the document.
+  /// -> str
+  lang: "de",
+  /// Set the List indentation.
+  /// -> length
+  list-bullet-indent: 1.5em,
+  /// Set the Enum indentation.
+  /// -> length
+  list-numbered-indent: 1.5em,
+  /// Set the margins of the document.
+  /// -> auto | relative | dictionary
+  page-margins: (left: 25mm, right: 25mm, top: 30mm, bottom: 30mm),
+  /// Set the page numbering alignment.
+  /// -> alignment
+  page-numbering-align: center,
+  /// Set the page numbering style.
+  /// -> none | str | function
+  page-numbering: "1",
+  /// Set the indentation of the first line of paragraphs.
+  /// -> length
+  par-first-line-indent: 1.8em,
+  /// Set if document should be justified.
+  /// -> bool
+  par-justify: true,
+  /// Set the spacing between paragraphs.
+  /// -> length
+  par-spacing: 0.55em,
+  /// Set the text font.
+  /// -> str
+  text-font: "New Computer Modern",
   /// Set the text size.
   /// Headings are adjusted automatically.
   /// -> length
   text-size: 10pt,
-  /// Set the page numbering style.
-  /// -> none | str | function
-  page-numbering: "1",
-  /// Set the page numbering alignment.
-  /// -> alignment
-  page-numbering-align: center,
-  /// Set the heading numbering style.
-  /// -> none | str | function
-  heading-numbering: "1.1",
-  /// Set the margins of the document.
-  /// -> auto | relative | dictionary
-  margins: (left: 25mm, right: 25mm, top: 30mm, bottom: 30mm),
-  /// Set the Enum indentation.
-  /// -> length
-  enum-indent: 1.5em,
-  /// Set the List indentation.
-  /// -> length
-  list-indent: 1.5em,
-  /// Set if the default header should be used.
-  /// -> bool
-  header-display: false,
-  /// Set if the default header should be alternating.
-  /// -> bool
-  alternating-header: true,
-  /// Set the first page of the header.
-  /// -> int | float
-  first-page-header: 1,
-  /// Set the Header Titel
-  /// -> str | content
-  header-title: none,
-  /// Set if document should be justified.
-  /// -> bool
-  justify: true,
-  /// Set the number of columns, that the document should have.
-  /// -> none | int
-  cols: none,
-  /// Set the width of the figure captions.
-  /// -> relative
-  fig-caption-width: 75%,
-  /// Set the width of the headerline.
-  /// -> length
-  header-line-stroke: .65pt,
-  ///-> content
+  /// -> content
   content,
 ) = {
   // Set the document's basic properties.
   set page(
-    margin: margins,
+    margin: page-margins,
     numbering: page-numbering,
     number-align: page-numbering-align,
   )
-  set text(font: "New Computer Modern", lang: lang, size: text-size)
+  set text(font: text-font, lang: lang, size: text-size)
   set par(
     leading: 0.55em,
-    spacing: 0.55em,
-    first-line-indent: 1.8em,
-    justify: true,
+    spacing: par-spacing,
+    first-line-indent: par-first-line-indent,
+    justify: par-justify,
   )
   show heading: set block(above: 1.4em, below: 1em)
   show math.equation: set block(above: 2em, below: 2em)
@@ -93,11 +102,9 @@
 
   // Set the equation numbering style.
 
-  let chapterwise-numbering = (..num) => numbering(
-    eq-numbering,
-    counter(heading).get().first(),
-    num.pos().first(),
-  )
+  let chapterwise-numbering = (..num) => numbering(eq-numbering, counter(heading).get().first(), num
+    .pos()
+    .first())
   show heading.where(level: 1): if eq-chapterwise { reset-eq-counter } else {
     it => it
   }
@@ -106,8 +113,8 @@
   set math.equation(numbering: chapterwise-numbering) if eq-chapterwise
 
   set heading(numbering: heading-numbering)
-  set enum(indent: enum-indent)
-  set list(indent: list-indent)
+  set enum(indent: list-numbered-indent)
+  set list(indent: list-bullet-indent)
   show outline.entry.where(level: 1): {
     it => link(it.element.location(), it.indented(
       strong(it.prefix()),
@@ -125,10 +132,7 @@
 
   show outline.where(target: figure.where(kind: image)): it => {
     show outline.entry.where(level: 1): {
-      it => link(it.element.location(), it.indented(
-        strong(it.prefix()),
-        it.inner(),
-      ))
+      it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
     }
     it
   }
@@ -137,10 +141,7 @@
 
   show outline.where(target: figure.where(kind: table)): it => {
     show outline.entry.where(level: 1): {
-      it => link(it.element.location(), it.indented(
-        strong(it.prefix()),
-        it.inner(),
-      ))
+      it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
     }
     it
   }
@@ -180,8 +181,8 @@
   let header-oddPage = header-oddPage(header-line-stroke, header-title)
   let header-evenPage = header-evenPage(header-line-stroke, header-title)
   let header-content = header-content(
-    first-page-header,
-    alternating-header,
+    header-first-page,
+    header-alternating,
     oddPage: header-oddPage,
     evenPage: header-evenPage,
   )
