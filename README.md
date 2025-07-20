@@ -6,9 +6,11 @@
 
 
 
-<!-- <div align="center">Version 0.4.2</div> -->
+<!-- <div align="center">Version 0.5.0</div> -->
 
-This template is intended as a starting point for creating documents, which should have the classic LaTeX Article look.
+This template is a replication of the classic `article` class in LaTeX.
+It is designed to be used for writing articles, papers, and other documents. It is a good
+starting point for people transitioning from LaTeX to typst or students starting with academic writing. 
 
 ## Getting Started
 
@@ -21,7 +23,7 @@ This will create a new Typst project in the current directory with the `rubber-a
 
 The following code snippet shows the minimal example of how to use the template.
 ```typ
-#import "@preview/rubber-article:0.4.2": *
+#import "@preview/rubber-article:0.5.0": *
 
 #show: article
 
@@ -30,6 +32,16 @@ The following code snippet shows the minimal example of how to use the template.
   authors: ("Authors Name",),
   date: "September 2024",
 )
+```
+
+
+It shall be noted here, that this is not an exact copy, but rather a very close reinterpretation, since typst is quite different to work with. Additionally some features, that have not been present in the original `article` class, have been added to this template. For example the `header-line` has been added, which in LaTeX would have needed the package `fancyhdr`. 
+Also worth a mention is that the default paper size in Typst is the A4 format, while in the original the US Letter format is used. 
+
+In order to recreate the original `article` class, use the following settings.
+```typ
+#show: article.with(margins: 1.75in)
+#set page(paper: "us-letter")
 ```
 
 ## Further Functionality
@@ -67,7 +79,7 @@ To install this template locally, follow the steps below:
 
 The template can then be imported with
 ```typ
-#import "@local/rubber-article:0.4.2"
+#import "@local/rubber-article:0.5.0"
 ```
 To install the package in the preview namespace, run `just install-preview` instead.
 
