@@ -1,4 +1,12 @@
-// This file contains functions that will generate some content.
+/*
+ * Copyright (c) 2025 npikall
+ *
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License; see the LICENSE file for details.
+ *
+ * This file contains functions that will generate some content.
+ */
+
 
 #import "dependencies.typ": *
 #import "utils.typ": outlined

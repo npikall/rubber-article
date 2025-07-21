@@ -1,12 +1,22 @@
-// This file contains utility functions used in other functions.
+/*
+ * Copyright (c) 2025 npikall
+ *
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License; see the LICENSE file for details.
+ *
+ * This file contains minor utility functions which are used in other functions
+ * or have very little functionality.
+ */
 
 #import "dependencies.typ": *
 
+// Used to reset the equation counter to 0 for chapterwise numbering.
 #let reset-eq-counter = it => {
   counter(math.equation).update(0)
   it
 }
 
+// Helper function to display the header on odd pages
 #let header-oddPage(header-line-stroke, header-title) = context {
   set text(10pt)
   set grid.hline(stroke: header-line-stroke)
@@ -20,6 +30,7 @@
   )
 }
 
+// Helper function to display the header on even pages
 #let header-evenPage(header-line-stroke, header-title) = context {
   set text(10pt)
   set grid.hline(stroke: header-line-stroke)
@@ -33,6 +44,7 @@
   )
 }
 
+// Helper function to put a header line with alternating content
 #let header-content(
   first-page-header,
   alternating-header,
@@ -52,9 +64,11 @@
   }
 }
 
+// Used to determine if the long or short caption should be displayed.
 #let outlined = state("outlined", false)
 
 /// Balance the content of columns.
+/// Have a multicolumn layout with almost equal height columns.
 /// #show link: set text(fill:blue)
 /// Credits go to: #link("https://github.com/typst/typst/issues/466")
 ///
@@ -76,5 +90,19 @@
 
 
 /// A vertical space, which is weakly enforced.
-/// This is useful to add space between paragraphs if the default spacing is not sufficient.
+/// This is useful to add space between paragraphs if the default spacing is not
+/// sufficient and the same space should be used throughout the document.
+/// By using this function instead of regular `v(xem)` you can ensure the same distance
+/// throughout the document.
+///
+/// ```typ
+/// #lorem(50) // Some paragraph
+/// #vspace // Add some space
+/// #lorem(50) // Next paragraph
+/// ```
+///
+/// If the space is not as large as you want it to be, you can set the value in the
+/// beginning of the document with `#let vspace = v(1.5em)`
+///
+/// -> space
 #let vspace = v(1.5em, weak: true)
