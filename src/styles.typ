@@ -1,4 +1,11 @@
-// This file contains functions that will set the styles for the documents.
+/*
+ * Copyright (c) 2025 npikall
+ *
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License; see the LICENSE file for details.
+ *
+ * This file contains functions that will set the style for the document.
+ */
 
 #import "dependencies.typ": *
 #import "utils.typ": *
@@ -40,7 +47,7 @@
   /// Set the width of the headerline.
   /// -> length
   header-line-stroke: .65pt,
-  /// Set the Header Titel
+  /// Set the Header Title
   /// -> str | content
   header-title: none,
   /// Set the heading numbering style.
@@ -64,6 +71,9 @@
   /// Set the page numbering style.
   /// -> none | str | function
   page-numbering: "1",
+  /// Set the paper size.
+  /// -> str
+  page-paper: "a4",
   /// Set the indentation of the first line of paragraphs.
   /// -> length
   par-first-line-indent: 1.8em,
@@ -88,6 +98,7 @@
     margin: page-margins,
     numbering: page-numbering,
     number-align: page-numbering-align,
+    paper: page-paper,
   )
   set text(font: text-font, lang: lang, size: text-size)
   set par(
@@ -196,11 +207,13 @@
   } else { content }
 }
 
-/// Function to format the Appendix. This function is intended to be used after the document has been styled with the `article` function.
+/// Function to format the Appendix.
+/// This function is intended to be used after the document has been styled
+/// with the `article` function.
 ///
 /// Example usage:
 /// ```typ
-/// #show: article.with()
+/// #show: article
 /// // A lot of content goes here...
 ///
 /// #show: appendix.with(
@@ -211,9 +224,6 @@
 ///
 /// -> content
 #let appendix(
-  /// The numbering of the Appendix
-  /// -> none | str | function
-  numbering: "A.1",
   /// The title of the Appendix
   /// -> none | str | content
   title: none,
@@ -223,7 +233,10 @@
   /// The size of the title
   /// -> length
   title-size: none,
-  /// Startting the appendex after this number
+  /// The numbering of the Appendix
+  /// -> none | str | function
+  numbering: "A.1",
+  /// Startting the appendix after this number
   /// -> int
   numbering-start: 0,
   content,
