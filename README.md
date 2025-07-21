@@ -8,7 +8,7 @@
 
 <!-- <div align="center">Version 0.5.0</div> -->
 
-This template is a replication of the classic `article` class in LaTeX.
+This template is a replication/implementation of the classic `article` LaTeX class in Typst.
 It is designed to be used for writing articles, papers, and other documents. It is a good
 starting point for people transitioning from LaTeX to typst or students starting with academic writing. 
 
@@ -40,8 +40,10 @@ Also worth a mention is that the default paper size in Typst is the A4 format, w
 
 In order to recreate the original `article` class, use the following settings.
 ```typ
-#show: article.with(margins: 1.75in)
-#set page(paper: "us-letter")
+#show: article.with(
+  page-margins: 1.75in,
+  page-paper: "us-letter",
+)
 ```
 
 ## Further Functionality
@@ -52,16 +54,18 @@ For now here are a few of the most important parameters of the main function.
 
 ```typ
 #show: article.with(
-  lang:"de",
-  eq-numbering:"(1.1)",
-  eq-chapterwise:true,
-  text-size:10pt,
-  page-numbering: "1",
-  page-numbering-align: center,
-  heading-numbering: "1.1",
-  header-display: false,
-  fig-caption-width:70%,
   cols:2,
+  eq-chapterwise:true,
+  eq-numbering: "(1.1)",
+  fig-caption-width: 70%,
+  header-display: true,
+  header-title: "Document Title",
+  heading-numbering: "1.1",
+  lang: "de",
+  page-margins: 1.75in,
+  page-numbering: "1",
+  page-paper: "us-letter",
+  ...,
 )
 ```
 Some features are not from the original LaTeX article class, but have been added, as they have been deemed useful or nice to have. An example would be the built-in header, which displays the Documents title and the current chapter name.
