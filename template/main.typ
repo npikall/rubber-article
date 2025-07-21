@@ -1,24 +1,38 @@
+/*
+ * The Rubber Article Template.
+ *
+ * Here is a quick run-down of the template.
+ * Some example content has been added for you to see what the template looks like and how it works.
+ * Some features of this template are explained here, so you might want to check it out.
+ */
+
 #import "@preview/rubber-article:0.5.0": *
 
+// Layout and styling
 #show: article.with(
-  cols: none, // Tip: use #colbreak() instead of #pagebreak() to avoid error when useing columns
+  cols: none, // Tip: use #colbreak() instead of #pagebreak() to seamlessly toggle columns
   eq-chapterwise: true,
   eq-numbering: "(1.1)",
   header-display: true,
   header-title: "The Title of the Paper",
   lang: "en",
   page-margins: 1.75in,
+  page-paper: "us-letter",
 )
 
+// Frontmatter
 #maketitle(title: "The Title of the Paper", authors: ("Authors Name",), date: datetime
   .today()
   .display("[day]. [month repr:long] [year]"))
 
-// Some example content has been added for you to see how the template looks like.
-// Some features of this template are explained here, so you might want to check it out.
+// Actual Content starts here.
+// REMOVE BELOW THIS LINE TO START YOUR OWN CONTENT.
 = Introduction
-#lorem(140)
+#lorem(50) Here is the paragraph spacing with default settings.
 
+#lorem(60) Here the vspace function is used to add some space between paragraphs on demand to
+
+#vspace
 #lorem(100)
 $
   x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c))/ (2 a)
@@ -35,6 +49,8 @@ $
 #lorem(20)
 
 === Contributions
+#lorem(40)
+
 #lorem(40)
 
 = Related Work
