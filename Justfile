@@ -50,7 +50,7 @@ uninstall-preview: (remove "@preview")
 check:
   typst-package-check check
 
-# run ci suite
+# run ci suite (test, doc, thumbnail)
 ci: test doc thumbnail
 
 # update the package version
