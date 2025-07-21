@@ -1,4 +1,12 @@
-// This file contains functions that will generate some content.
+/*
+ * Copyright (c) 2025 npikall
+ *
+ * This is free software: you can redistribute it and/or modify
+ * it under the terms of the MIT License; see the LICENSE file for details.
+ *
+ * This file contains functions that will generate some content.
+ */
+
 
 #import "dependencies.typ": *
 #import "utils.typ": outlined
@@ -31,6 +39,9 @@
   /// This does not work when `article` sets columns before!!!
   /// -> bool
   metadata: false,
+  /// The vertical spacing above and below the titleblock.
+  /// -> dict
+  spacing: (above: 60pt, below: 20pt),
 ) = {
   if metadata {
     set document(author: authors.at(0), title: title)
@@ -48,13 +59,13 @@
   // Frontmatter
 
   place(top + center, scope: "parent", float: true, align(center)[
-    #v(60pt)
+    #v(spacing.above)
     #block(text(weight: 400, 18pt, title))
     #v(1em, weak: true)
     #authors-text
     #v(1em, weak: true)
     #block(text(weight: 400, 1.1em, date))
-    #v(20pt)
+    #v(spacing.below)
   ])
 }
 

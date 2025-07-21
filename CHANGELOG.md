@@ -1,3 +1,13 @@
+# [v0.5.0](https://github.com/npikall/rubber-article/releases/tag/v0.5.0)
+- new option to set default font
+- new option to set spacings around the title-block
+- new option to set paragraph spacing
+- new option to set the paper size
+- new function to have a common vertical spacer between paragraphs
+- patch of justify option
+- refactor of the argument names
+- better documentation
+
 # [v0.4.2](https://github.com/npikall/rubber-article/releases/tag/v0.4.2)
 - new function for abstract
 - new option to set columns for entire document
