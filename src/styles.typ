@@ -134,6 +134,7 @@
     ))
   }
   show outline: it => {
+    show link: it => it
     outlined.update(true)
     it
     outlined.update(false)
@@ -142,6 +143,7 @@
   // Outline styling for image figures
 
   show outline.where(target: figure.where(kind: image)): it => {
+    show link: it => it
     show outline.entry.where(level: 1): {
       it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
     }
@@ -151,6 +153,7 @@
   // Outline styling for table figures
 
   show outline.where(target: figure.where(kind: table)): it => {
+    show link: it => it
     show outline.entry.where(level: 1): {
       it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
     }
