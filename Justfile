@@ -55,4 +55,4 @@ ci: test doc thumbnail
 
 # update the package version
 bump old new:
-  python ./scripts/bump.py "{{old}}" "{{new}}"
+  uv run ./scripts/bump.py "{{old}}" "{{new}}"
