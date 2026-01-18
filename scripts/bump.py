@@ -8,7 +8,7 @@
 import logging
 import re
 import sys
-from enum import IntEnum, auto
+from enum import IntEnum
 from pathlib import Path
 
 FILES_TO_UPDATE = ["typst.toml", "README.md", "template/main.typ", "docs/docs.typ"]
