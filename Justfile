@@ -1,34 +1,33 @@
 root := justfile_directory()
-
 export TYPST_ROOT := root
 
 [private]
 default:
-	@just --list --unsorted
+    @just --list --unsorted
 
 # generate manual
 doc:
-	typst compile docs/docs.typ docs/docs.pdf
+    typst compile docs/docs.typ docs/docs.pdf
 
 # generate the thumbnail
 thumbnail:
-  typst compile docs/thumbnail.typ thumbnail.png
+    typst compile docs/thumbnail.typ thumbnail.png
 
 # compile the template
 template:
-  typst compile template/main.typ --package-path ~/.local/share/typst/packages
+    typst compile template/main.typ --package-path ~/.local/share/typst/packages
 
 # run test suite
 test *args:
-  tt run {{ args }}
+    tt run {{ args }}
 
 # update test cases
 update *args:
-  tt update {{ args }}
+    tt update {{ args }}
 
 # package the library into the specified destination folder
 package target:
-  ./scripts/package "{{target}}"
+    ./scripts/package "{{ target }}"
 
 # install the library with the "@local" prefix
 install: (package "@local")
@@ -38,7 +37,7 @@ install-preview: (package "@preview")
 
 [private]
 remove target:
-  ./scripts/uninstall "{{target}}"
+    ./scripts/uninstall "{{ target }}"
 
 # uninstalls the library from the "@local" prefix
 uninstall: (remove "@local")
@@ -48,11 +47,15 @@ uninstall-preview: (remove "@preview")
 
 # run typst package checker
 check:
-  typst-package-check check
+    typst-package-check check
 
 # run ci suite (test, doc, thumbnail)
 ci: test doc thumbnail
 
 # update the package version
 bump old new:
-  uv run ./scripts/bump.py "{{old}}" "{{new}}"
+    uv run ./scripts/bump.py "{{ old }}" "{{ new }}"
+
+# update the changelog
+changelog BUMP=`git-changelog --bumped-version`:
+    git-changelog --git-trailers -io CHANGELOG.md --bump="{{ BUMP }}" --convention angular --versioning semver -Z
