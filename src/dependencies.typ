@@ -8,5 +8,5 @@
  * Their functionality is only used for advanced features.
  */
 
-#import "@preview/hydra:0.6.1": hydra
+#import "@preview/hydra:0.6.2": hydra
 #import "@preview/pillar:0.3.3"
