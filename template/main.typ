@@ -6,7 +6,7 @@
  * Some features of this template are explained here, so you might want to check it out.
  */
 
-#import "@preview/rubber-article:0.5.0": *
+#import "@preview/rubber-article:0.5.1": *
 
 // Layout and styling
 #show: article.with(
