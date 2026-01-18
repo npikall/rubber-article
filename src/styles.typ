@@ -62,6 +62,9 @@
   /// Set the Enum indentation.
   /// -> length
   list-numbered-indent: 1.5em,
+  /// Set the color of the Links in the outline
+  /// -> color
+  outline-link-color: black,
   /// Set the margins of the document.
   /// -> auto | relative | dictionary
   page-margins: (left: 25mm, right: 25mm, top: 30mm, bottom: 30mm),
@@ -113,9 +116,11 @@
 
   // Set the equation numbering style.
 
-  let chapterwise-numbering = (..num) => numbering(eq-numbering, counter(heading).get().first(), num
-    .pos()
-    .first())
+  let chapterwise-numbering = (..num) => numbering(
+    eq-numbering,
+    counter(heading).get().first(),
+    num.pos().first(),
+  )
   show heading.where(level: 1): if eq-chapterwise { reset-eq-counter } else {
     it => it
   }
@@ -126,24 +131,33 @@
   set heading(numbering: heading-numbering)
   set enum(indent: list-numbered-indent)
   set list(indent: list-bullet-indent)
-  show outline.entry.where(level: 1): {
-    it => link(it.element.location(), it.indented(
-      strong(it.prefix()),
-      strong((it.body()) + h(1fr) + it.page()),
-      gap: 0.5em,
-    ))
-  }
   show outline: it => {
     outlined.update(true)
     it
     outlined.update(false)
+  }
+  show outline.entry.where(level: 1): {
+    it => {
+      show link: set text(fill: outline-link-color)
+      link(it.element.location(), it.indented(
+        strong(it.prefix()),
+        strong((it.body()) + h(1fr) + it.page()),
+        gap: 0.5em,
+      ))
+    }
   }
 
   // Outline styling for image figures
 
   show outline.where(target: figure.where(kind: image)): it => {
     show outline.entry.where(level: 1): {
-      it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
+      it => {
+        show link: set text(fill: outline-link-color)
+        link(it.element.location(), it.indented(
+          strong(it.prefix()),
+          it.inner(),
+        ))
+      }
     }
     it
   }
@@ -152,7 +166,13 @@
 
   show outline.where(target: figure.where(kind: table)): it => {
     show outline.entry.where(level: 1): {
-      it => link(it.element.location(), it.indented(strong(it.prefix()), it.inner()))
+      it => {
+        show link: set text(fill: outline-link-color)
+        link(it.element.location(), it.indented(
+          strong(it.prefix()),
+          it.inner(),
+        ))
+      }
     }
     it
   }
