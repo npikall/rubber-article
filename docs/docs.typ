@@ -14,13 +14,16 @@
 #show heading.where(level: 1): set text(rgb("#239DAD"))
 #show heading.where(level: 2): set text(rgb("#239DAD"))
 
-#show outline.entry.where(level: 2): it => link(it.element.location(), it.indented(
-  it.prefix(),
-  strong(it.body()) + h(1fr) + strong(it.page()),
-))
+#show outline.entry.where(level: 2): it => link(
+  it.element.location(),
+  it.indented(
+    it.prefix(),
+    strong(it.body()) + h(1fr) + strong(it.page()),
+  ),
+)
 
 #heading(outlined: false)[Rubber Article - Template Documentation]
-#align(center, heading(level: 2, text(black)[v.0.5.1], outlined: false))
+#align(center, heading(level: 2, text(black)[v0.5.1], outlined: false))
 #v(1cm)
 
 #outline(depth: 3)
