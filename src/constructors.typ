@@ -57,15 +57,18 @@
     ))
   }
   // Frontmatter
-  align(center)[
-    #v(spacing.above)
-    #block(text(weight: 400, 18pt, title))
-    #v(1em, weak: true)
-    #authors-text
-    #v(1em, weak: true)
-    #block(text(weight: 400, 1.1em, date))
-    #v(spacing.below)
-  ]
+  box(
+    align(center)[
+      #v(spacing.above)
+      #block(text(weight: 400, 18pt, title))
+      #v(1em, weak: true)
+      #authors-text
+      #v(1em, weak: true)
+      #block(text(weight: 400, 1.1em, date))
+      #v(spacing.below)
+    ],
+    inset: (bottom: 1.5em),
+  )
 }
 
 /// This function will display a custom table. The table uses the `pillar` package
