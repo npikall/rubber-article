@@ -57,8 +57,7 @@
     ))
   }
   // Frontmatter
-
-  place(top + center, scope: "parent", float: true, align(center)[
+  align(center)[
     #v(spacing.above)
     #block(text(weight: 400, 18pt, title))
     #v(1em, weak: true)
@@ -66,7 +65,7 @@
     #v(1em, weak: true)
     #block(text(weight: 400, 1.1em, date))
     #v(spacing.below)
-  ])
+  ]
 }
 
 /// This function will display a custom table. The table uses the `pillar` package
