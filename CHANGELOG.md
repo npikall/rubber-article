@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [0.5.2](https://github.com/npikall/rubber-article/releases/tag/0.5.2) - 2026-02-25
+
+<small>[Compare with v0.5.1](https://github.com/npikall/rubber-article/compare/v0.5.1...0.5.2)</small>
+
+### Reverts
+
+- add env variable typst-root back into justfile ([7adb6ad](https://github.com/npikall/rubber-article/commit/7adb6ad7b4a25cbedd2389c85247248dac813f2c) by npikall).
+- strict placement of maketitle in the top from v0.4.2 ([1087a62](https://github.com/npikall/rubber-article/commit/1087a628e668521696d706415ca12babb60ce8de) by npikall).
+
+### Code Refactoring
+
+- move frontmatter into box with an inset ([e9f6fc1](https://github.com/npikall/rubber-article/commit/e9f6fc1d8e66f8c81beb02f37b8b3825bc01de4c) by npikall).
+
 
 ## [v0.5.1](https://github.com/npikall/rubber-article/releases/tag/v0.5.1) - 2026-01-18
 

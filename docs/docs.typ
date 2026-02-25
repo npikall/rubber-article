@@ -23,7 +23,7 @@
 )
 
 #heading(outlined: false)[Rubber Article - Template Documentation]
-#align(center, heading(level: 2, text(black)[v0.5.1], outlined: false))
+#align(center, heading(level: 2, text(black)[v0.5.2], outlined: false))
 #v(1cm)
 
 #outline(depth: 3)
@@ -37,7 +37,7 @@ with academic writing.
 
 #heading(level: 3, outlined: false)[Example Usage]
 ```typ
-#import "@preview/rubber-article:0.5.1": *
+#import "@preview/rubber-article:0.5.2": *
 #show: article
 #maketitle(
   title: "The Title of the Paper",
