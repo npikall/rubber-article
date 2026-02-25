@@ -13,7 +13,7 @@ info:
     @echo "{{ CYAN }}Arch{{ NORMAL }}: {{ arch() }}"
     @echo "{{ CYAN }}OS{{ NORMAL }}: {{ os_family() }}, {{ os() }}"
     @echo "{{ CYAN }}Num CPU's{{ NORMAL }}: {{ num_cpus() }}"
-    @echo "{{ CYAN }}Project{{ NORMAL }}: `uv version`"
+    @echo "{{ CYAN }}Project{{ NORMAL }}: `gotpm bump --show-current`"
 
 # install the pre-commit hooks
 [group("chore")]
@@ -96,8 +96,8 @@ _ensure_clean:
 changelog version=`gotpm bump -c`:
     git-changelog -Tio CHANGELOG.md -B="{{ version }}" -c conventional
 
-_commit_and_tag version=`uv version --short`:
-    git add pyproject.toml uv.lock CHANGELOG.md
+_commit_and_tag version=`gotpm bump --show-current`:
+    git add typst.toml README.md template/main.typ docs/docs.typ CHANGELOG.md
     git commit -m "chore(release): bumped version to {{ version }}"
     git tag -a "v{{ version }}"
 
