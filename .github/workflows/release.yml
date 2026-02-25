@@ -43,7 +43,8 @@ jobs:
 
       - name: Determine and check package metadata
         run: |
-          . scripts/setup
+          PKG_PREFIX="$(read-toml "$ROOT/typst.toml" "name")"
+          VERSION="$(read-toml "$ROOT/typst.toml" "version")"
           echo "PKG_NAME=${PKG_PREFIX}" >> "${GITHUB_ENV}"
           echo "PKG_VERSION=${VERSION}" >> "${GITHUB_ENV}"
 
