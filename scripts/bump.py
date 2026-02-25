@@ -25,8 +25,8 @@ class ExitCode(IntEnum):
     ERROR = 1
 
 
-def update_version(old: str, new: str, file: Path) -> None:
-    """Update the version of the Typst package Version in the specified file."""
+def update_file(old: str, new: str, file: Path) -> None:
+    """Replace 'old' with a 'new' string in the file."""
     content: str = file.read_text()
     updated_content: str = content.replace(old, new)
     file.write_text(data=updated_content)
@@ -37,13 +37,13 @@ def main() -> int:
     """Handle command line arguments and update versions."""
     max_args = 3
     if len(sys.argv) != max_args:
-        log.error("Usage: python bump.py <old_version> <new_version>")
+        log.error("Usage: ./bump.py <old_version> <new_version>")
         return ExitCode.ERROR
     root: Path = Path.cwd()
     old_version: str = sys.argv[1]
     new_version: str = sys.argv[2]
     for file in FILES_TO_UPDATE:
-        update_version(old=old_version, new=new_version, file=root / file)
+        update_file(old=old_version, new=new_version, file=root / file)
     return ExitCode.SUCCESS
 
 
