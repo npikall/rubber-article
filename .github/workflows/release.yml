@@ -1,7 +1,7 @@
 name: Package and push to registry repo
 on:
   push:
-    tags: [ v* ]
+    tags: [v*]
 
 env:
   # the repository to which to push the release version
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Probe runner package cache
         uses: awalsh128/cache-apt-pkgs-action@v1
@@ -34,6 +34,12 @@ jobs:
         uses: typst-community/setup-typst@v3
         with:
           typst-version: latest
+
+      - name: Setup Go and gotpm
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.26"
+      - run: go install github.com/npikall/gotpm@latest
 
       - name: Determine and check package metadata
         run: |
@@ -60,8 +66,8 @@ jobs:
       - name: Release package
         run: |
           mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME"
-          mv "out/${PKG_NAME}/${PKG_VERSION}" "typst-packages/${{ env.PATH_PREFIX }}/${PKG_NAME}"
-          rmdir "out/${PKG_NAME}"
+          mv "out/local/${PKG_NAME}/${PKG_VERSION}" "typst-packages/${{ env.PATH_PREFIX }}/${PKG_NAME}"
+          rmdir "out/local/${PKG_NAME}"
           rmdir out
 
           GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
