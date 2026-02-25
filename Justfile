@@ -2,6 +2,11 @@
 _default:
     @just --list --unsorted
 
+alias i := install
+alias u := uninstall
+alias ip := install-preview
+alias up := uninstall-preview
+
 # display the system/project information
 [group("chore")]
 info:
@@ -61,6 +66,11 @@ uninstall:
 uninstall-preview:
     gotpm uninstall -n preview
 
+# package the library into the specified destination folder
+[group("chore")]
+package target:
+    TYPST_PACKAGE_PATH="{{ target }}" gotpm install
+
 # run typst package checker
 [group("test")]
 check:
@@ -73,7 +83,7 @@ ci: test doc thumbnail
 # update the package version
 [group("chore")]
 bump incr="patch":
-    uv run ./scripts/bump.py `gotpm bump -c` {{ incr }}
+    uv run ./scripts/bump.py `gotpm bump --show-current` `gotpm bump {{ incr }} --show-next`
     gotpm bump {{ incr }} --indent
 
 
@@ -81,18 +91,9 @@ _ensure_clean:
     @git diff --quiet
     @git diff --cached --quiet
 
-_set_version target:
-    case "{{ target }}" in \
-        [0-9]*.[0-9]*.[0-9]*) \
-            uv version {{ target }} ;; \
-        *) \
-            uv version --bump {{ target }} ;; \
-    esac
-    uv lock
-
 # write the changelog from commit messages (gh:pawamoy/git-changelog)
 [group("chore")]
-changelog version=`uv version --short`:
+changelog version=`gotpm bump -c`:
     git-changelog -Tio CHANGELOG.md -B="{{ version }}" -c conventional
 
 _commit_and_tag version=`uv version --short`:
@@ -100,11 +101,11 @@ _commit_and_tag version=`uv version --short`:
     git commit -m "chore(release): bumped version to {{ version }}"
     git tag -a "v{{ version }}"
 
-# make a new release [target:<major|minor|patch|...> or semver]
+# make a new release [target:<major|minor|patch> or semver]
 [group("chore")]
 release target: test
     @just _ensure_clean
-    @just _set_version {{ target }}
+    @just bump {{ target }}
     @just changelog
     @just _commit_and_tag
     @echo "{{ GREEN }}Release complete. Run 'git push && git push --tags'.{{ NORMAL }}"
