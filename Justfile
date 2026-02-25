@@ -77,11 +77,13 @@ package target:
 # run typst package checker
 [group("test")]
 check:
-    typst-package-check check
+    just package out
+    -cd out/local/rubber-article/`gotpm bump -c` && typst-package-check check
+    rm -rf out/
 
 # run ci suite (test, doc, thumbnail)
 [group("test")]
-ci: test docs thumbnail
+ci: test docs thumbnail check
 
 # update the package version
 [group("chore")]
@@ -106,7 +108,7 @@ _commit_and_tag version=`gotpm bump --show-current`:
 
 # make a new release [target:<major|minor|patch> or semver]
 [group("chore")]
-release target: test
+release target: test check
     @just _ensure_clean
     @just bump {{ target }}
     @just changelog
