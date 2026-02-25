@@ -1,0 +1,38 @@
+# Secrets
+.env
+
+# Temporary and binary files
+.cache/*
+.ipynb_checkpoints/*
+/**/.ipynb_checkpoints/*
+.DS_Store
+
+# Project files
+.ropeproject
+.project
+.pydevproject
+.settings
+.idea
+.vscode
+tags
+
+# Unittest and coverage
+htmlcov/*
+.coverage
+.tox
+junit.xml
+coverage.xml
+.pytest_cache/
+
+# Build and docs folder/files
+build/*
+dist/*
+sdist/*
+docs/api/*
+docs/_rst/*
+docs/_build/*
+cover/*
+MANIFEST
+/**/*.html
+/**/*_files/
+site/
