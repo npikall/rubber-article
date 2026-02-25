@@ -11,6 +11,7 @@ env:
   # the path within that repo where the "<name>/<version>" directory should be put
   # for the Typst package registry, keep this as is
   PATH_PREFIX: packages/preview
+  PKG_NAME: rubber-article
 
 jobs:
   release:
@@ -41,18 +42,6 @@ jobs:
           go-version: "1.26"
       - run: go install github.com/npikall/gotpm@latest
 
-      - name: Determine and check package metadata
-        run: |
-          PKG_PREFIX="$(read-toml "$ROOT/typst.toml" "name")"
-          VERSION="$(read-toml "$ROOT/typst.toml" "version")"
-          echo "PKG_NAME=${PKG_PREFIX}" >> "${GITHUB_ENV}"
-          echo "PKG_VERSION=${VERSION}" >> "${GITHUB_ENV}"
-
-          if [[ "${GITHUB_REF_NAME}" != "v${VERSION}" ]]; then
-            echo "package version ${VERSION} does not match release tag ${GITHUB_REF_NAME}" >&2
-            exit 1
-          fi
-
       - name: Build package
         run: |
           just package out
@@ -66,9 +55,10 @@ jobs:
 
       - name: Release package
         run: |
-          mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/$PKG_NAME"
-          mv "out/local/${PKG_NAME}/${PKG_VERSION}" "typst-packages/${{ env.PATH_PREFIX }}/${PKG_NAME}"
-          rmdir "out/local/${PKG_NAME}"
+          PKG_VERSION="$(gotpm bump --show-current)"
+          mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/${{ env.PKG_NAME }}"
+          mv "out/local/${{ env.PKG_NAME }}/${PKG_VERSION}" "typst-packages/${{ env.PATH_PREFIX }}/${{ env.PKG_NAME }}"
+          rmdir "out/local/${{ env.PKG_NAME }}"
           rmdir out
 
           GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
@@ -77,7 +67,7 @@ jobs:
           cd typst-packages
           git config user.name "${GIT_USER_NAME}"
           git config user.email "${GIT_USER_EMAIL}"
-          git checkout -b "${PKG_NAME}-${PKG_VERSION}"
+          git checkout -b "${{ env.PKG_NAME }}-${PKG_VERSION}"
           git add .
-          git commit -m "${PKG_NAME}:${PKG_VERSION}"
-          git push --set-upstream origin "${PKG_NAME}-${PKG_VERSION}"
+          git commit -m "${{ env.PKG_NAME }}:${PKG_VERSION}"
+          git push --set-upstream origin "${{ env.PKG_NAME }}-${PKG_VERSION}"
