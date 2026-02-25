@@ -1,3 +1,6 @@
+root := justfile_directory()
+export TYPST_ROOT := root
+
 [default]
 _default:
     @just --list --unsorted
@@ -23,7 +26,7 @@ hooks:
 
 # generate manual
 [group("typst")]
-doc:
+docs:
     typst compile docs/docs.typ docs/docs.pdf
 
 # generate the thumbnail
@@ -78,7 +81,7 @@ check:
 
 # run ci suite (test, doc, thumbnail)
 [group("test")]
-ci: test doc thumbnail
+ci: test docs thumbnail
 
 # update the package version
 [group("chore")]
