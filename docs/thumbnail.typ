@@ -8,9 +8,11 @@
   page-margins: 1.75in,
 )
 
-#maketitle(title: "The Title of the Paper", authors: ("Authors Name",), date: datetime
-  .today()
-  .display("[day]. [month repr:long] [year]"))
+#maketitle(
+  title: "The Title of the Paper",
+  authors: ("Authors Name",),
+  date: datetime.today().display("[day]. [month repr:long] [year]"),
+)
 
 // Some example content has been added for you to see how the template looks like.
 = Introduction
@@ -20,4 +22,4 @@
 $
   x_(1,2) = (-b plus.minus sqrt(b^2 - 4 a c))/ (2 a)
 $
-#lorem(100)
+#lorem(80)
