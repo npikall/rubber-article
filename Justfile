@@ -37,7 +37,7 @@ thumbnail:
 # compile the template
 [group("typst")]
 template:
-    typst compile template/main.typ --package-path ~/.local/share/typst/packages
+    typst compile template/main.typ
 
 # run test suite
 [group("test")]
