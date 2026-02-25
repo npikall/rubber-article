@@ -100,7 +100,7 @@ changelog version=`gotpm bump -c`:
     git-changelog -Tio CHANGELOG.md -B="{{ version }}" -c conventional
 
 _commit_and_tag version=`gotpm bump --show-current`:
-    git add typst.toml README.md template/main.typ docs/docs.typ CHANGELOG.md
+    git add typst.toml README.md template/main.typ docs/docs.typ docs/docs.pdf CHANGELOG.md
     git commit -m "chore(release): bumped version to {{ version }}"
     git tag -a "v{{ version }}"
 
@@ -110,5 +110,6 @@ release target: test
     @just _ensure_clean
     @just bump {{ target }}
     @just changelog
+    @just docs
     @just _commit_and_tag
     @echo "{{ GREEN }}Release complete. Run 'git push && git push --tags'.{{ NORMAL }}"
