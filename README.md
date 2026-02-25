@@ -7,7 +7,7 @@
 
 <!-- <div align="center">Version 0.5.1</div> -->
 
-This template is an opinionated replication/implementation of the classic `article` LaTeX class in Typst.
+This template is an opinionated reinterpretation of the classic `article` LaTeX class in Typst.
 It is designed to be used for writing articles, papers, and other documents. It is a good
 starting point for people transitioning from LaTeX to typst or students starting with academic writing.
 
