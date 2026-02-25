@@ -30,7 +30,7 @@ def update_version(old: str, new: str, file: Path) -> None:
     content: str = file.read_text()
     updated_content: str = content.replace(old, new)
     file.write_text(data=updated_content)
-    log.info("%s -> %s: %s", old, new, file)
+    log.info("%s -> %s: %s", old, new, file.relative_to(Path.cwd()))
 
 
 def main() -> int:
