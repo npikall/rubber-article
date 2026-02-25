@@ -59,6 +59,7 @@ jobs:
           mkdir -p "typst-packages/${{ env.PATH_PREFIX }}/${{ env.PKG_NAME }}"
           mv "out/local/${{ env.PKG_NAME }}/${PKG_VERSION}" "typst-packages/${{ env.PATH_PREFIX }}/${{ env.PKG_NAME }}"
           rmdir "out/local/${{ env.PKG_NAME }}"
+          rmdir out/local
           rmdir out
 
           GIT_USER_NAME="$(git log -1 --pretty=format:'%an')"
