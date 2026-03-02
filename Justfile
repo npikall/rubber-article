@@ -1,5 +1,7 @@
 root := justfile_directory()
 export TYPST_ROOT := root
+project_name := "rubber-article"
+current_version := `gotpm bump -c`
 
 [default]
 _default:
@@ -16,7 +18,7 @@ info:
     @echo "{{ CYAN }}Arch{{ NORMAL }}: {{ arch() }}"
     @echo "{{ CYAN }}OS{{ NORMAL }}: {{ os_family() }}, {{ os() }}"
     @echo "{{ CYAN }}Num CPU's{{ NORMAL }}: {{ num_cpus() }}"
-    @echo "{{ CYAN }}Project{{ NORMAL }}: `gotpm bump --show-current`"
+    @echo "{{ CYAN }}Project{{ NORMAL }}: {{ project_name }} {{ current_version }}"
 
 # install the pre-commit hooks
 [group("chore")]
@@ -74,11 +76,18 @@ uninstall-preview:
 package target:
     TYPST_PACKAGE_PATH="{{ target }}" gotpm install
 
+# package and force move to specified destination folder
+packmv target flags="--force":
+    just package out
+    rm -r {{ target }}/{{ current_version }}
+    mv {{ flags }} out/local/{{ project_name }}/{{ current_version }}/ {{ target }}
+    rm -rf out/
+
 # run typst package checker
 [group("test")]
 check:
     just package out
-    -cd out/local/rubber-article/`gotpm bump -c` && typst-package-check check
+    -cd out/local/{{ project_name }}/{{ current_version }} && typst-package-check check
     rm -rf out/
 
 # run ci suite (test, doc, thumbnail)
