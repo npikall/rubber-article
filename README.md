@@ -3,7 +3,7 @@
 [![Dynamic TOML Badge](https://img.shields.io/badge/dynamic/toml?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnpikall%2Frubber-article%2Frefs%2Fheads%2Fmain%2Ftypst.toml&query=%24.package.version&prefix=v&logo=typst&label=template&color=239DAD)](https://typst.app/universe/package/rubber-article)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/npikall/rubber-article/blob/main/LICENSE)
 [![Test Status](https://github.com/npikall/rubber-article/actions/workflows/ci.yml/badge.svg)](https://github.com/npikall/rubber-article/actions/workflows/ci.yml)
-[![User Manual](https://img.shields.io/badge/doc-.pdf-mediumpurple)](https://github.com/npikall/rubber-article/blob/main/docs/docs.pdf)
+[![User Manual](https://img.shields.io/badge/doc-docs.pdf-mediumpurple)](https://github.com/npikall/rubber-article/blob/main/docs/docs.pdf)
 
 <!-- <div align="center">Version 0.5.2</div> -->
 
@@ -94,5 +94,5 @@ The template can then be imported with
 
 To install the package in the preview namespace, run `just install-preview` instead.
 
-[guide]: https://github.com/npikall/rubber-article/tree/main/docs/docs.pdf
+[guide]: https://github.com/npikall/rubber-article/blob/main/docs/docs.pdf
 [repository]: https://github.com/npikall/rubber-article
