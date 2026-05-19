@@ -30,7 +30,7 @@
   title: "",
   /// The authors of the document.
   /// -> array
-  authors: (),
+  authors: ("",),
   /// The date of the document.
   /// -> string | content | datetime
   date: none,
