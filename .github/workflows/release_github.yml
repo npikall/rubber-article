@@ -1,28 +1,56 @@
 # yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
 name: Release
 
-
 on:
   push:
     tags:
       - "v*"
 
-permissions:
-  contents: write
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   release:
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # needed to create the GitHub release and upload its assets
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
         with:
-          version: "0.9.28"
+          version: "0.13.8"
+          enable-cache: false
 
       - name: Install git-changelog
         run: uv tool install git-changelog
+
+      - name: Install just
+        uses: taiki-e/install-action@ab49d3c64680143e184118bed66a46419fc15519 # v2.90.5
+        with:
+          tool: just
+
+      - name: Setup Go and gotpm
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: "1.27"
+          cache: false
+      - run: go install github.com/npikall/gotpm@latest
+
+      - name: Setup typst
+        uses: typst-community/setup-typst@00ad6338f0b34724ea002136bfb701a6c18585b0 # v5.3.2
+        with:
+          typst-version: latest
+
+      - name: Build release artifacts
+        run: just docs thumbnail
 
       - name: Prepare release notes
         run: git-changelog --release-notes > release-notes.md
@@ -31,9 +59,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create ${{ github.ref_name }} \
-            --repo ${{ github.repository }} \
-            --title "rubber-article - ${{ github.ref_name }}" \
+          gh release create "${GITHUB_REF_NAME}" \
+            --repo "${GITHUB_REPOSITORY}" \
+            --title "rubber-article - ${GITHUB_REF_NAME}" \
             --notes-file release-notes.md \
             --fail-on-no-commits \
-            --draft
+            --draft \
+            docs/docs.pdf thumbnail.png

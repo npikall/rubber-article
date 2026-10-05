@@ -1,24 +1,24 @@
 name: Tests
 on:
   push:
-    branches: [main, dev]
+    branches: [master, main]
   pull_request:
-    branches: [main, dev]
+    branches: [master, main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
 
 jobs:
   tests:
     strategy:
-      # run tests on all versions, even if one fails
       fail-fast: false
       matrix:
-        # add any other Typst versions that your package should support
         typst-version:
-          #   - typst: 0.12
-          # tytanic: 0.1
           - typst: 0.13
             tytanic: 0.2
-            # the docs don't need to build with all versions supported by the package;
-            # the latest one is enough
             doc: true
 
     name: Test for ${{ matrix.typst-version.typst }} (Tytanic ${{ matrix.typst-version.tytanic }}${{ matrix.typst-version.doc && ', with docs' }})
@@ -26,22 +26,24 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Install just and tytanic
-        uses: taiki-e/install-action@v2
+        uses: taiki-e/install-action@ab49d3c64680143e184118bed66a46419fc15519 # v2.90.5
         with:
           tool: just,tytanic@${{ matrix.typst-version.tytanic }}
 
       - name: Setup Go and gotpm
-        uses: actions/setup-go@v6
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: "1.26"
       - run: go install github.com/npikall/gotpm@latest
 
       - name: Setup typst
         id: setup-typst
-        uses: typst-community/setup-typst@v3
+        uses: typst-community/setup-typst@00ad6338f0b34724ea002136bfb701a6c18585b0 # v5.3.2
         with:
           typst-version: ${{ matrix.typst-version.typst }}
 

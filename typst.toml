@@ -5,7 +5,15 @@
   description = "A simple template recreating the look of the classic LaTeX article."
   disciplines = ["biology", "chemistry", "engineering", "geography", "mathematics", "physics"]
   entrypoint = "src/lib.typ"
-  exclude = [".github", "docs", "scripts", "tests", ".typstignore", "Justfile"]
+  exclude = [
+    ".github",
+    "docs",
+    "scripts",
+    "tests",
+    "justfile",
+    "CONTRIBUTING.md",
+    ".pre-commit-config.yaml",
+  ]
   keywords = ["template", "article"]
   license = "MIT"
   name = "rubber-article"
@@ -16,3 +24,7 @@
   entrypoint = "main.typ"
   path = "template"
   thumbnail = "thumbnail.png"
+
+[tool.gotpm]
+  post-publish-hook = ["rm thumbnail.png"]
+  pre-publish-hook = ["just thumbnail"]

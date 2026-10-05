@@ -29,10 +29,11 @@
 #outline(depth: 3)
 
 #v(1cm)
-This template is a replication/implementation of the classic `article` #fancy-latex class in
-#fancy-typst. It is designed to be used for writing articles, papers, and other documents. It is a
-good starting point for people transitioning from #fancy-latex to #fancy-typst or students starting
-with academic writing.
+This template is a replication/implementation of the classic `article`
+#fancy-latex class in #fancy-typst. It is designed to be used for writing
+articles, papers, and other documents. It is a good starting point for people
+transitioning from #fancy-latex to #fancy-typst or students starting with
+academic writing.
 
 
 #heading(level: 3, outlined: false)[Example Usage]
@@ -45,12 +46,13 @@ with academic writing.
   date: datetime.today().display("[day].[month].[year]"),
 )
 ```
-It shall be noted here, that this is not an exact copy, but rather a very close reinterpretation,
-since #fancy-typst is quite different to work with. Additionally some features, that have not been
-present in the original `article` class, have been added to this template. For example the
-`header-line` has been added, which in #fancy-latex would have needed the package `fancyhdr`. Also
-worth a mention is that the default paper size in Typst is the A4 format, while in the original the
-US Letter format is used.
+It shall be noted here, that this is not an exact copy, but rather a very close
+reinterpretation, since #fancy-typst is quite different to work with.
+Additionally some features, that have not been present in the original `article`
+class, have been added to this template. For example the `header-line` has been
+added, which in #fancy-latex would have needed the package `fancyhdr`. Also
+worth a mention is that the default paper size in Typst is the A4 format, while
+in the original the US Letter format is used.
 
 In order to recreate the original `article` class, use the following settings.
 ```typ
@@ -67,8 +69,9 @@ In order to recreate the original `article` class, use the following settings.
 
 
 == Styling functions
-These functions are used to style certain elements of the document. They are usually called with a
-`#show` statement. They do not output any content, but rather modify the appearance of the document.
+These functions are used to style certain elements of the document. They are
+usually called with a `#show` statement. They do not output any content, but
+rather modify the appearance of the document.
 
 #let docs-styles = tidy.parse-module(
   read("../src/styles.typ"),
@@ -81,8 +84,8 @@ These functions are used to style certain elements of the document. They are usu
 
 #pagebreak()
 == Constructor functions
-These functions are used to create certain elements of the document. They can be called with certain
-arguments and output some content.
+These functions are used to create certain elements of the document. They can be
+called with certain arguments and output some content.
 
 #let docs-constructors = tidy.parse-module(
   read("../src/constructors.typ"),
@@ -94,8 +97,9 @@ arguments and output some content.
 #tidy.show-module(docs-constructors, style: tidy.styles.default)
 
 == Utility functions
-These functions can be used to perform certain tasks in the document. These functions will help you
-style certain elements of the document, where otherwise complicated functions would be needed.
+These functions can be used to perform certain tasks in the document. These
+functions will help you style certain elements of the document, where otherwise
+complicated functions would be needed.
 
 #let docs-utils = tidy.parse-module(
   read("../src/utils.typ"),
