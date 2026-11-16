@@ -1,5 +1,5 @@
 #set page(width: auto, height: auto)
-#import "../../src/lib.typ":*
+#import "../../src/lib.typ": *
 
 // Test the maketitle function
 #maketitle(
@@ -63,5 +63,5 @@
 #abstract(alignment: center)[
   #lorem(5)
 ]
-= Intro 
+= Intro
 #lorem(5)

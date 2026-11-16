@@ -3,7 +3,7 @@
 # dependencies = []
 # ///
 
-"""Bump the version of the Typst package in various files."""  # noqa: INP001
+"""Bump the version of the Typst package in various files."""
 
 import logging
 import sys
@@ -21,7 +21,7 @@ logging.basicConfig(
 
 
 class ExitCode(IntEnum):
-    SUCCESS = 0
+    OK = 0
     ERROR = 1
 
 
@@ -33,6 +33,12 @@ def update_file(old: str, new: str, file: Path) -> None:
     log.info("%s -> %s: %s", old, new, file.relative_to(Path.cwd()))
 
 
+def update_all_files(files: list[str], old: str, new: str, root: Path) -> None:
+    for file in files:
+        path = root / file
+        update_file(old=old, new=new, file=path)
+
+
 def main() -> int:
     """Handle command line arguments and update versions."""
     max_args = 3
@@ -40,12 +46,9 @@ def main() -> int:
         log.error("Usage: ./bump.py <old_version> <new_version>")
         return ExitCode.ERROR
     root: Path = Path.cwd()
-    old_version: str = sys.argv[1]
-    new_version: str = sys.argv[2]
-    for file in FILES_TO_UPDATE:
-        update_file(old=old_version, new=new_version, file=root / file)
-    return ExitCode.SUCCESS
+    update_all_files(files=FILES_TO_UPDATE, old=sys.argv[1], new=sys.argv[2], root=root)
+    return ExitCode.OK
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(main())

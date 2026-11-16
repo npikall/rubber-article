@@ -32,7 +32,8 @@
 = Introduction
 #lorem(50) Here is the paragraph spacing with default settings.
 
-#lorem(60) Here the vspace function is used to add some space between paragraphs on demand to
+#lorem(60) Here the vspace function is used to add some space between paragraphs
+on demand to
 
 #vspace
 #lorem(100)

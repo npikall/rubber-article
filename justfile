@@ -13,7 +13,6 @@ alias ip := install-preview
 alias up := uninstall-preview
 
 # display the system/project information
-[group("chore")]
 info:
     @echo "{{ CYAN }}Arch{{ NORMAL }}: {{ arch() }}"
     @echo "{{ CYAN }}OS{{ NORMAL }}: {{ os_family() }}, {{ os() }}"
@@ -21,106 +20,79 @@ info:
     @echo "{{ CYAN }}Project{{ NORMAL }}: {{ project_name }} {{ current_version }}"
 
 # install the pre-commit hooks
-[group("chore")]
 hooks:
     uvx prek install
 
-
 # generate manual
-[group("typst")]
 docs:
     typst compile docs/docs.typ docs/docs.pdf
 
 # generate the thumbnail
-[group("typst")]
 thumbnail:
-    typst compile docs/thumbnail.typ thumbnail.png
+    typst compile --creation-timestamp=0 docs/thumbnail.typ thumbnail.png
 
 # compile the template
-[group("typst")]
 template:
     typst compile template/main.typ
 
 # run test suite
-[group("test")]
 test *args:
     tt run {{ args }}
 
 # update test cases
-[group("test")]
 update *args:
     tt update {{ args }}
 
 # install the library with the "@local" prefix
-[group("chore")]
 install:
     gotpm install
 
 # install the library with the "@preview" prefix (for pre-release testing)
-[group("chore")]
 install-preview:
     gotpm install -n preview
 
 # uninstalls the library from the "@local" prefix
-[group("chore")]
 uninstall:
     gotpm uninstall
 
 # uninstalls the library from the "@preview" prefix (for pre-release testing)
-[group("chore")]
 uninstall-preview:
     gotpm uninstall -n preview
 
 # package the library into the specified destination folder
-[group("chore")]
 package target:
     TYPST_PACKAGE_PATH="{{ target }}" gotpm install
 
-# package and force move to specified destination folder
-packmv target flags="--force":
-    just package out
-    rm -r {{ target }}/{{ current_version }}
-    mv {{ flags }} out/local/{{ project_name }}/{{ current_version }}/ {{ target }}
-    rm -rf out/
-
 # run typst package checker
-[group("test")]
 check:
     just package out
     -cd out/local/{{ project_name }}/{{ current_version }} && typst-package-check check
     rm -rf out/
 
 # run ci suite (test, doc, thumbnail)
-[group("test")]
 ci: test docs thumbnail check
 
 # update the package version
-[group("chore")]
 bump incr="patch":
     uv run ./scripts/bump.py `gotpm bump --show-current` `gotpm bump {{ incr }} --show-next`
     gotpm bump {{ incr }} --indent
 
 
 _ensure_clean:
-    @git diff --quiet
-    @git diff --cached --quiet
+    @test -z "$(jj diff --summary)" || (echo "{{ RED }}Working copy is not clean.{{ NORMAL }}" && exit 1)
 
 # write the changelog from commit messages (gh:pawamoy/git-changelog)
-[group("chore")]
 changelog version=`gotpm bump -c`:
     git-changelog -Tio CHANGELOG.md -B="{{ version }}" -c conventional
 
 _commit_and_tag version=`gotpm bump --show-current`:
-    git add typst.toml README.md template/main.typ docs/docs.typ docs/docs.pdf CHANGELOG.md
-    git commit -m "chore(release): bumped version to {{ version }}"
-    git tag -a "v{{ version }}"
+    jj commit -m "chore(release): bumped version to {{ version }}"
+    jj tag set "v{{ version }}" -r @-
 
 # make a new release [target:<major|minor|patch> or semver]
-[group("chore")]
 release target: test check
     @just _ensure_clean
     @just bump {{ target }}
     @just changelog
-    @just docs
     @just _commit_and_tag
-    @echo "{{ GREEN }}Release complete. Run 'git push && git push --tags'.{{ NORMAL }}"
+    @echo "{{ GREEN }}Release committed and tagged. Move the main bookmark to @-, then push it and the tag.{{ NORMAL }}"

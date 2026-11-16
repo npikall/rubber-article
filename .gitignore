@@ -36,3 +36,7 @@ MANIFEST
 /**/*.html
 /**/*_files/
 site/
+
+# Generated artifacts (attached to GitHub releases, never committed)
+thumbnail.png
+docs/docs.pdf
